@@ -51,7 +51,6 @@ function cadastrar(mensagem) {
     return;
   }
 
-  // Verificar se o CRM já está cadastrado, excluindo temporariamente o médico atual
   let cadastrosTemp = cadastros.filter((medico) => medico.crm !== crm);
   if (cadastrosTemp.some((medico) => medico.crm === crm)) {
     alert("O CRM já está cadastrado.");
@@ -107,14 +106,10 @@ function AlterarMedico() {
   const crm = document.getElementById("crm").value;
   let medicoAtual = cadastros.find((medico) => medico.crm === crm);
 
-  // Remover temporariamente o médico atual da lista
   cadastros = cadastros.filter((medico) => medico.crm !== crm);
 
-  // Chamamos a função cadastrar para verificar se o CRM já existe na lista,
-  // porém sem verificar o CRM do médico que estamos editando
   cadastrar("Cadastro atualizado com sucesso");
 
-  // Restaurar o médico atual na lista
   if (medicoAtual) {
     cadastros.unshift(medicoAtual);
   }
