@@ -18,7 +18,6 @@ function cadastrar(mensagem) {
   let sexo = oSexo.value;
   let especialidade = oEspecialidade.value;
   let universidade = oUniversidade.value;
-  let oCadastro = {};
 
   if (
     !crm ||
@@ -40,46 +39,49 @@ function cadastrar(mensagem) {
     return;
   }
 
+  const phonePattern = /^[1-9]{2}[0-9]{6}$/;
+  if (!phonePattern.test(telefone)) {
+    alert("Telefone inválido. Deve estar no formato XXXXXXXX");
+    return;
+  }
+
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
   if (!emailPattern.test(email)) {
     alert("Email inválido.");
     return;
   }
 
-  cadastros = cadastros.filter((medico) => medico.crm !== crm);
-
-  oCadastro.crm = crm;
-  oCadastro.nome = nome;
-  oCadastro.data = data;
-  oCadastro.email = email;
-  oCadastro.telefone = telefone;
-  oCadastro.sexo = sexo;
-  oCadastro.especialidade = especialidade;
-  oCadastro.universidade = universidade;
-
-  let flag = false;
-  for (i = 0; i < cadastros.length; i++) {
-    if (cadastros[i].crm == crm) {
-      flag = true;
-    }
+  // Verificar se o CRM já está cadastrado, excluindo temporariamente o médico atual
+  let cadastrosTemp = cadastros.filter((medico) => medico.crm !== crm);
+  if (cadastrosTemp.some((medico) => medico.crm === crm)) {
+    alert("O CRM já está cadastrado.");
+    return;
   }
-  if (flag) {
-    alert(
-      "O cadastro deste objeto não foi possível, pois as informações já foram cadastradas anteriormente."
-    );
-  } else {
-    cadastros.unshift(oCadastro);
-    localStorage.setItem("cadastros", JSON.stringify(cadastros));
-    oCrm.value = "";
-    oNome.value = "";
-    oData.value = "";
-    oEmail.value = "";
-    oTel.value = "";
-    oSexo.value = "";
-    oEspecialidade.value = "";
-    oUniversidade.value = "";
-    alert(mensagem ?? "Cadastrado efetuado com sucesso");
-  }
+
+  let oCadastro = {
+    crm: crm,
+    nome: nome,
+    data: data,
+    email: email,
+    telefone: telefone,
+    sexo: sexo,
+    especialidade: especialidade,
+    universidade: universidade,
+  };
+
+  cadastros.unshift(oCadastro);
+  localStorage.setItem("cadastros", JSON.stringify(cadastros));
+
+  oCrm.value = "";
+  oNome.value = "";
+  oData.value = "";
+  oEmail.value = "";
+  oTel.value = "";
+  oSexo.value = "";
+  oEspecialidade.value = "";
+  oUniversidade.value = "";
+
+  alert(mensagem ?? "Cadastrado efetuado com sucesso");
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
@@ -103,8 +105,19 @@ document.addEventListener("DOMContentLoaded", (event) => {
 
 function AlterarMedico() {
   const crm = document.getElementById("crm").value;
+  let medicoAtual = cadastros.find((medico) => medico.crm === crm);
+
+  // Remover temporariamente o médico atual da lista
   cadastros = cadastros.filter((medico) => medico.crm !== crm);
+
+  // Chamamos a função cadastrar para verificar se o CRM já existe na lista,
+  // porém sem verificar o CRM do médico que estamos editando
   cadastrar("Cadastro atualizado com sucesso");
+
+  // Restaurar o médico atual na lista
+  if (medicoAtual) {
+    cadastros.unshift(medicoAtual);
+  }
 
   localStorage.removeItem("medicoParaEditar");
   document.getElementById("cadastrar").style.display = "inline-block";
