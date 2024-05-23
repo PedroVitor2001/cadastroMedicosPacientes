@@ -16,18 +16,21 @@ function cadastrar(mensagem) {
   let telefone = oTel.value;
   let sexo = oSexo.value;
   let plano = oPlano.value;
-  let oCadastro = {};
 
-  if (
-    !cpf ||
-    !nome ||
-    !data ||
-    !email ||
-    !telefone ||
-    !sexo ||
-    !plano
-  ) {
+  if (!cpf || !nome || !data || !email || !telefone || !sexo || !plano) {
     alert("Todos os campos são obrigatórios.");
+    return;
+  }
+
+  const cpfPattern = /^(\d{3}\.){2}\d{3}-\d{2}$/;
+  if (!cpfPattern.test(cpf)) {
+    alert("CPF inválido. Deve ser: XXX.XXX.XXX-XX");
+    return;
+  }
+
+  const phonePattern = /^[1-9]{2}[0-9]{6}$/;
+  if (!phonePattern.test(telefone)) {
+    alert("Telefone inválido.");
     return;
   }
 
@@ -37,27 +40,27 @@ function cadastrar(mensagem) {
     return;
   }
 
-  pacientes = pacientes.filter((paciente) => paciente.cpf !== cpf);
-
-  oCadastro.cpf = cpf;
-  oCadastro.nome = nome;
-  oCadastro.data = data;
-  oCadastro.email = email;
-  oCadastro.telefone = telefone;
-  oCadastro.sexo = sexo;
-  oCadastro.plano = plano;
-
   let flag = false;
-  for (i = 0; i < pacientes.length; i++) {
-    if (pacientes[i].cpf == cpf) {
+  for (let i = 0; i < pacientes.length; i++) {
+    if (pacientes[i].cpf === cpf) {
       flag = true;
+      break;
     }
   }
+
   if (flag) {
-    alert(
-      "O cadastro deste objeto não foi possível, pois as informações já foram cadastradas anteriormente."
-    );
+    alert("O cadastro deste CPF não foi possível, pois já está cadastrado.");
   } else {
+    let oCadastro = {
+      cpf: cpf,
+      nome: nome,
+      data: data,
+      email: email,
+      telefone: telefone,
+      sexo: sexo,
+      plano: plano,
+    };
+
     pacientes.unshift(oCadastro);
     localStorage.setItem("pacientes", JSON.stringify(pacientes));
     oCpf.value = "";
@@ -67,12 +70,14 @@ function cadastrar(mensagem) {
     oTel.value = "";
     oSexo.value = "";
     oPlano.value = "";
-    alert(mensagem ?? "Cadastrado efetuado com sucesso");
+    alert(mensagem ?? "Cadastro efetuado com sucesso");
   }
 }
 
 document.addEventListener("DOMContentLoaded", (event) => {
-  const pacienteParaEditar = JSON.parse(localStorage.getItem("pacienteParaEditar"));
+  const pacienteParaEditar = JSON.parse(
+    localStorage.getItem("pacienteParaEditar")
+  );
   if (pacienteParaEditar) {
     document.getElementById("cpf").value = pacienteParaEditar.cpf;
     document.getElementById("nome").value = pacienteParaEditar.nome;
@@ -80,21 +85,62 @@ document.addEventListener("DOMContentLoaded", (event) => {
     document.getElementById("email").value = pacienteParaEditar.email;
     document.getElementById("telefone").value = pacienteParaEditar.telefone;
     document.getElementById("sexo").value = pacienteParaEditar.sexo;
-    document.getElementById("plano").value =
-    pacienteParaEditar.plano;
+    document.getElementById("plano").value = pacienteParaEditar.plano;
 
     document.getElementById("cadastrar").style.display = "none";
     document.getElementById("AlterarPaciente").style.display = "inline-block";
   }
 });
 
-
 function AlterarPaciente() {
   const cpf = document.getElementById("cpf").value;
-  pacientes = pacientes.filter((paciente) => paciente.cpf !== cpf);
-  cadastrar("Cadastro atualizado com sucesso");
+  const pacienteParaEditar = JSON.parse(
+    localStorage.getItem("pacienteParaEditar")
+  );
 
-  localStorage.removeItem("pacienteParaEditar");
-  document.getElementById("cadastrar").style.display = "inline-block";
-  document.getElementById("AlterarPaciente").style.display = "none";
+  // Remover o paciente atual da lista temporariamente
+  const pacientesAtualizados = pacientes.filter(
+    (paciente) => paciente.cpf !== pacienteParaEditar.cpf
+  );
+
+  let flag = false;
+  for (let i = 0; i < pacientesAtualizados.length; i++) {
+    if (pacientesAtualizados[i].cpf === cpf) {
+      flag = true;
+      break;
+    }
+  }
+
+  if (flag) {
+    alert("Não é possível atualizar o cadastro. CPF já está em uso.");
+  } else {
+    let pacienteAtualizado = {
+      cpf: cpf,
+      nome: document.getElementById("nome").value,
+      data: document.getElementById("data").value,
+      email: document.getElementById("email").value,
+      telefone: document.getElementById("telefone").value,
+      sexo: document.getElementById("sexo").value,
+      plano: document.getElementById("plano").value,
+    };
+
+    pacientes = pacientesAtualizados;
+    pacientes.unshift(pacienteAtualizado);
+    localStorage.setItem("pacientes", JSON.stringify(pacientes));
+
+    localStorage.removeItem("pacienteParaEditar");
+
+    document.getElementById("cpf").value = "";
+    document.getElementById("nome").value = "";
+    document.getElementById("data").value = "";
+    document.getElementById("email").value = "";
+    document.getElementById("telefone").value = "";
+    document.getElementById("sexo").value = "";
+    document.getElementById("plano").value = "";
+
+    alert("Cadastro atualizado com sucesso");
+
+    document.getElementById("cadastrar").style.display = "inline-block";
+    document.getElementById("AlterarPaciente").style.display = "none";
+  }
 }
