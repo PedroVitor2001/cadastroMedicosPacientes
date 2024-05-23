@@ -98,7 +98,6 @@ function AlterarPaciente() {
     localStorage.getItem("pacienteParaEditar")
   );
 
-  // Remover o paciente atual da lista temporariamente
   const pacientesAtualizados = pacientes.filter(
     (paciente) => paciente.cpf !== pacienteParaEditar.cpf
   );
