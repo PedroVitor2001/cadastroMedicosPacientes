@@ -30,7 +30,7 @@ function cadastrar(mensagem) {
 
   const phonePattern = /^[1-9]{2}[0-9]{6}$/;
   if (!phonePattern.test(telefone)) {
-    alert("Telefone inválido.");
+    alert("Telefone inválido. Deve estar no formato XXXXXXXX");
     return;
   }
 
