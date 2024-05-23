@@ -96,5 +96,5 @@ function AlterarPaciente() {
 
   localStorage.removeItem("pacienteParaEditar");
   document.getElementById("cadastrar").style.display = "inline-block";
-  document.getElementById("Alterarpaciente").style.display = "none";
+  document.getElementById("AlterarPaciente").style.display = "none";
 }
