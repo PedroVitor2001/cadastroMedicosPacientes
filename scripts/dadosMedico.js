@@ -7,7 +7,7 @@ function mostrar() {
   }
 
   let tbody = document.querySelector("#medicosTable tbody");
-  tbody.innerHTML = ""; // Limpar tabela
+  tbody.innerHTML = "";
 
   for (let i = 0; i < cadastros.length; i++) {
     let row = tbody.insertRow();
@@ -34,7 +34,7 @@ function ListarUm() {
     alert("Cadastro não encontrado.");
   } else {
     let tbody = document.querySelector("#medicosTable tbody");
-    tbody.innerHTML = ""; // Limpar tabela
+    tbody.innerHTML = "";
 
     let row = tbody.insertRow();
     row.insertCell(0).textContent = medico.nome;

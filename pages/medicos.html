@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <title>Página de Médicos</title>
+    <link rel="stylesheet" href="../css/medicos.css" />
+  </head>
+  <body>
+    <header class="cabecalho">
+      <img class="icone" src="../imgs/icone.jpg" />
+      <p class="header-paragrafo">HOSPITAL SÃO ORDNAS</p>
+      <div>
+        <nav class="navegacao">
+          <a class="pagina-medicos" href="medicos.html">Página de Médicos</a>
+          <a class="pagina-pacientes" href="pacientes PW1.html"
+            >Página de Pacientes</a
+          >
+          <a class="sair" href="index.html">Sair</a>
+        </nav>
+      </div>
+    </header>
+    <section class="titulo">
+      <h1 class="titulo">Médicos</h1>
+    </section>
+    <section class="cadastro-sec">
+      <div class="cadastro">
+        <h2>
+          É médico de nosso hospital e ainda não está cadastrado? Cadastre-se
+          logo abaixo:
+        </h2>
+        <div class="campos" id="form">
+          <label for="crm">CRM:</label>
+          <input type="text" id="crm" name="crm" /><br />
+          <label for="nome">Nome:</label>
+          <input type="text" id="nome" name="nome" /><br />
+          <label for="data">Data de nascimento:</label>
+          <input type="date" id="data" name="dtnascimento" /><br />
+          <label for="sexo">Sexo:</label>
+          <input type="text" id="sexo" name="sexo" /><br />
+          <label for="especialidade">Especialidade:</label>
+          <select id="especialidade" name="especialidade">
+            <option value="cardiologista">Cardiologista</option>
+            <option value="urologista">Urologista</option>
+            <option value="pediatra">Pediatra</option>
+            <option value="cirurgiao-geral">Cirurgião Geral</option>
+          </select>
+          <label for="uni">Universidade de Formação:</label>
+          <input type="text" id="universidade" name="universidade" /><br />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" /><br />
+          <label for="telefone">Telefone:</label>
+          <input type="number" id="telefone" name="telefone" /><br />
+          <button
+            class="botao"
+            type="submit"
+            onclick="cadastrar()"
+            id="cadastrar"
+          >
+            Cadastrar
+          </button>
+          <button
+            class="botao"
+            type="submit"
+            onclick="AlterarMedico()"
+            style="display: none"
+            id="AlterarMedico"
+          >
+            Salvar alterações
+          </button>
+        </div>
+      </div>
+      <div class="collum-2">
+        <div class="cadastro" id="cadastro-2">
+          <h2 class="cadastrado">
+            Acesse informações sobre nossos médicos cadastrados
+          </h2>
+          <div class="campos">
+            <a href="dadosMedico.html">Ir</a>
+          </div>
+        </div>
+        <p id="p1"></p>
+      </div>
+    </section>
+    <footer>
+      <p>© 2023-2024 Hospital São Ordnas</p>
+    </footer>
+    <script src="../scripts/medicos.js"></script>
+  </body>
+</html>
