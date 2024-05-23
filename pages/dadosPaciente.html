@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/dadosMedico.css" />
-    <title>Document</title>
+    <link rel="stylesheet" href="../css/dadosPaciente.css" />
+    <title>Dados do Paciente</title>
   </head>
   <body>
     <header class="cabecalho">
@@ -13,54 +13,48 @@
       <div>
         <nav class="navegacao">
           <a class="pagina-medicos" href="medicos.html">Página de Médicos</a>
-          <a class="pagina-pacientes" href="pacientes.html"
-            >Página de Pacientes</a
-          >
+          <a class="pagina-pacientes" href="pacientes.html">Página de Pacientes</a>
           <a class="sair" href="index.html">Sair</a>
         </nav>
       </div>
     </header>
     <section class="titulo">
-      <h1 class="titulo">Médicos</h1>
+      <h1 class="titulo">Pacientes</h1>
     </section>
     <div class="collum-2">
       <div class="cadastro" id="cadastro-2">
-        <h2 class="cadastrado">Procure pelo CRM</h2>
+        <h2 class="cadastrado">Procure pelo CPF</h2>
         <div class="campos">
-          <label for="icrm">CRM:</label>
-          <input type="text" id="icrm" name="icrm" /><br />
+          <label for="icpf">CPF:</label>
+          <input type="text" id="icpf" name="icpf" /><br />
           <button class="botao" type="submit" onclick="mostrar()">
-            Listar todos</button
-          ><br />
+            Listar todos</button><br />
           <button class="botao" type="submit" onclick="ListarUm()">
-            Listar Um</button
-          ><br />
+            Listar Um</button><br />
           <button class="botao" type="submit" onclick="Alterar()">
-            Alterar</button
-          ><br />
+            Alterar</button><br />
           <button class="botao" type="submit" onclick="Excluir()">
             Excluir
           </button>
         </div>
       </div>
       <div id="tabela-dados">
-        <table id="medicosTable">
+        <table id="pacientesTable">
           <thead>
             <tr>
               <th>Nome</th>
-              <th>CRM</th>
+              <th>CPF</th>
               <th>Sexo</th>
               <th>Data de Nascimento</th>
               <th>Email</th>
               <th>Telefone</th>
-              <th>Especialidade</th>
-              <th>Universidade</th>
+              <th>Endereço</th>
             </tr>
           </thead>
           <tbody></tbody>
         </table>
       </div>
     </div>
-    <script src="../scripts/dadosMedico.js"></script>
+    <script src="../scripts/dadosPaciente.js"></script>
   </body>
 </html>
