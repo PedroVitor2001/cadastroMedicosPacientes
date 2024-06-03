@@ -26,7 +26,7 @@ public class CadastroMedicoTest {
     @Test
     @DisplayName("Should open and close the website")
     void shouldOpenAndCloseTheWebsite() throws InterruptedException {
-        driver.get("http://localhost/cadastroMedicosPacientes/");
+        driver.get("https://cadastro-medicos-pacientes-a4n9.vercel.app/");
         Thread.sleep(1000);
         driver.quit();
     }
