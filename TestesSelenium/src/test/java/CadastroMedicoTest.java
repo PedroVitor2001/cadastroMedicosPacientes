@@ -19,6 +19,7 @@ public class CadastroMedicoTest {
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
+        paginaInicial = new PaginaInicial(driver);
     }
     @AfterEach
     void tearDown()
