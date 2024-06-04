@@ -1,3 +1,4 @@
+import Pages.PaginaInicial;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,7 +10,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 public class CadastroMedicoTest {
     private WebDriver driver;
-
+    final String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
+    private PaginaInicial paginaInicial;
     @BeforeEach
     void setUp()
     {
@@ -26,9 +28,19 @@ public class CadastroMedicoTest {
     @Test
     @DisplayName("Should open and close the website")
     void shouldOpenAndCloseTheWebsite() throws InterruptedException {
-        driver.get("https://cadastro-medicos-pacientes-a4n9.vercel.app/");
+        driver.get(url);
         Thread.sleep(1000);
         driver.quit();
+    }
+
+    @Test
+    @DisplayName("Should click on the doctor's button and go to another page")
+    void shouldClickOnTheDoctorsButtonAndGoToAnotherPage() throws InterruptedException
+    {
+        driver.get(url);
+        Thread.sleep(1000);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
     }
 
 }
