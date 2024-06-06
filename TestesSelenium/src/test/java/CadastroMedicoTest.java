@@ -115,7 +115,9 @@ public class CadastroMedicoTest {
         cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
 
         Thread.sleep(1000);
-
+        cadastroMedicos.clickRegisterDoctor();
+        Thread.sleep(1000);
+        
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
         alert = driver.switchTo().alert();
@@ -123,7 +125,7 @@ public class CadastroMedicoTest {
         alertMessage = alert.getText();
 
         assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
-
+        Thread.sleep(1000);
         alert.accept();
     }
 

@@ -16,7 +16,8 @@ public class CadastroMedicos {
     private By universidadeField = By.id("universidade");
     private By emailField = By.id("email");
     private By telefoneField = By.id("telefone");
-
+    private WebElement especialidadeDropdown;
+    private Select select;
     public CadastroMedicos(WebDriver driver) {
         this.driver = driver;
     }
@@ -24,7 +25,7 @@ public class CadastroMedicos {
     public void clickRegisterDoctor() {
         driver.findElement(buttonRegisterDoctor).click();
     }
-    
+
     public void fillCrmField(String crm) {
         driver.findElement(crmField).sendKeys(crm);
     }
@@ -42,8 +43,8 @@ public class CadastroMedicos {
     }
 
     public void selectEspecialidade(String especialidade) {
-        WebElement especialidadeDropdown = driver.findElement(especialidadeField);
-        Select select = new Select(especialidadeDropdown);
+        especialidadeDropdown = driver.findElement(especialidadeField);
+        select = new Select(especialidadeDropdown);
         select.selectByVisibleText(especialidade);
     }
 
