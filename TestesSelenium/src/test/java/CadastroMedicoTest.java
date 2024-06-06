@@ -50,7 +50,7 @@ public class CadastroMedicoTest {
     {
         driver.get(url);
         Thread.sleep(1000);
-        paginaInicial.clickPatientPage(driver);
+        paginaInicial.clickPatientPage();
         Thread.sleep(1000);
     }
 

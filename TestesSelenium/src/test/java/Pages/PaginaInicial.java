@@ -18,7 +18,7 @@ public class PaginaInicial {
         driver.findElement(buttonMedic).click();
     }
 
-    public void clickPatientPage(WebDriver driver) {
+    public void clickPatientPage() {
         driver.findElement(buttonPatient).click();
     }
 }
