@@ -1,3 +1,4 @@
+import Pages.CadastroMedicos;
 import Pages.PaginaInicial;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
@@ -19,6 +20,7 @@ public class CadastroMedicoTest {
     private WebDriver driver;
     final String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
     private PaginaInicial paginaInicial;
+    private CadastroMedicos cadastroMedicos;
     private  WebDriverWait webDriverWait;
     private Alert alert;
     private String alertMessage;
@@ -30,6 +32,7 @@ public class CadastroMedicoTest {
         options.addArguments("--remote-allow-origins=*");
         driver = new ChromeDriver(options);
         paginaInicial = new PaginaInicial(driver);
+        cadastroMedicos = new CadastroMedicos(driver);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     @AfterEach
@@ -73,7 +76,8 @@ public class CadastroMedicoTest {
         Thread.sleep(1000);
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
-        paginaInicial.clickRegisterDoctor();
+
+        cadastroMedicos.clickRegisterDoctor();
         Thread.sleep(1000);
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
