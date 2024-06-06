@@ -1,5 +1,6 @@
 import Pages.CadastroMedicos;
 import Pages.PaginaInicial;
+import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -24,6 +25,8 @@ public class CadastroMedicoTest {
     private  WebDriverWait webDriverWait;
     private Alert alert;
     private String alertMessage;
+    private Faker faker;
+
     @BeforeEach
     void setUp()
     {
@@ -33,6 +36,7 @@ public class CadastroMedicoTest {
         driver = new ChromeDriver(options);
         paginaInicial = new PaginaInicial(driver);
         cadastroMedicos = new CadastroMedicos(driver);
+        faker = new Faker();
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
     @AfterEach
@@ -90,5 +94,37 @@ public class CadastroMedicoTest {
         alert.accept();
     }
 
+
+    @Test
+    @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
+    void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage() throws InterruptedException{
+        driver.get(url);
+
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+
+        String crm = faker.number().digits(4);
+        String nome = faker.name().fullName();
+        String dataNascimento = "01/01/1980";
+        String sexo = faker.demographic().sex();
+        String especialidade = "Cardiologista";
+        String universidade = faker.university().name();
+        String email = faker.internet().emailAddress();
+        String telefone = faker.phoneNumber().cellPhone();
+
+        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+        alert = driver.switchTo().alert();
+
+        alertMessage = alert.getText();
+
+        assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
+
+        alert.accept();
+    }
 
 }
