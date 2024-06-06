@@ -143,7 +143,7 @@ public class CadastroMedicoTest {
                 MedicFakerUtil.getEspecialidade(),
                 MedicFakerUtil.getUniversidade(),
                 MedicFakerUtil.getEmail(),
-                MedicFakerUtil.getTelefone()
+                MedicFakerUtil.getWrongTelefone()
         );
         Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();

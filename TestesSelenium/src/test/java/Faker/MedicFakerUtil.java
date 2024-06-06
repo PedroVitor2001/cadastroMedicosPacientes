@@ -38,7 +38,23 @@ public class MedicFakerUtil {
         return faker.internet().emailAddress();
     }
 
+    public static String getWrongEmail() {
+
+        String[] wrongEmailPatterns = {
+                getNome().replaceAll(" ", "").toLowerCase() + ".com",
+                getNome().replaceAll(" ", "").toLowerCase() + "@.com",
+                getNome().replaceAll(" ", "").toLowerCase()+ "@domain.",
+                getNome() .replaceAll(" ", "").toLowerCase()+"!@domain.com",
+                getNome() .replaceAll(" ", "").toLowerCase()+ "@domain"
+        };
+        return wrongEmailPatterns[new Random().nextInt(wrongEmailPatterns.length)];
+    }
+
     public static String getTelefone() {
+        return faker.number().digits(8);
+    }
+
+    public static String getWrongTelefone() {
         return faker.number().digits(11);
     }
 
