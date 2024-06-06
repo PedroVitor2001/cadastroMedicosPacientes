@@ -103,21 +103,20 @@ public class CadastroMedicoTest {
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
-        String crm = faker.number().digits(4);
+        String crm = faker.number().digits(20);
         String nome = faker.name().fullName();
         String dataNascimento = "01/01/1980";
         String sexo = faker.demographic().sex();
-        String especialidade = "Cardiologista";
         String universidade = faker.university().name();
+        String especialidade = "Cardiologista";
         String email = faker.internet().emailAddress();
-        String telefone = faker.phoneNumber().cellPhone();
+        String telefone = faker.number().digits(11);
 
         cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
-
         Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
         Thread.sleep(1000);
-        
+
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
         alert = driver.switchTo().alert();
