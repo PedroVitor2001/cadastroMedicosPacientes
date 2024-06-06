@@ -1,6 +1,5 @@
 import Pages.CadastroMedicos;
 import Pages.PaginaInicial;
-import com.github.javafaker.Faker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,7 +11,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import Faker.FakerUtil;
+import Faker.MedicFakerUtil;
 import java.time.Duration;
 
 
@@ -104,14 +103,14 @@ public class CadastroMedicoTest {
 
         cadastroMedicos = new CadastroMedicos(driver);
         cadastroMedicos.fillAllFields(
-                FakerUtil.getWrongRandomCRM(),
-                FakerUtil.getNome(),
-                FakerUtil.getDataNascimento(),
-                FakerUtil.getSexo(),
-                FakerUtil.getEspecialidade(),
-                FakerUtil.getUniversidade(),
-                FakerUtil.getEmail(),
-                FakerUtil.getTelefone()
+                MedicFakerUtil.getWrongRandomCRM(),
+                MedicFakerUtil.getNome(),
+                MedicFakerUtil.getDataNascimento(),
+                MedicFakerUtil.getSexo(),
+                MedicFakerUtil.getEspecialidade(),
+                MedicFakerUtil.getUniversidade(),
+                MedicFakerUtil.getEmail(),
+                MedicFakerUtil.getTelefone()
         );
         Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
@@ -137,14 +136,14 @@ public class CadastroMedicoTest {
 
         cadastroMedicos = new CadastroMedicos(driver);
         cadastroMedicos.fillAllFields(
-                FakerUtil.getRandomCRM(),
-                FakerUtil.getNome(),
-                FakerUtil.getDataNascimento(),
-                FakerUtil.getSexo(),
-                FakerUtil.getEspecialidade(),
-                FakerUtil.getUniversidade(),
-                FakerUtil.getEmail(),
-                FakerUtil.getTelefone()
+                MedicFakerUtil.getRandomCRM(),
+                MedicFakerUtil.getNome(),
+                MedicFakerUtil.getDataNascimento(),
+                MedicFakerUtil.getSexo(),
+                MedicFakerUtil.getEspecialidade(),
+                MedicFakerUtil.getUniversidade(),
+                MedicFakerUtil.getEmail(),
+                MedicFakerUtil.getTelefone()
         );
         Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();

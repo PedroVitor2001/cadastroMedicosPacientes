@@ -4,7 +4,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class FakerUtil {
+public class MedicFakerUtil {
     private static final Faker faker = new Faker();
 
     public static String getRandomCRM() {
