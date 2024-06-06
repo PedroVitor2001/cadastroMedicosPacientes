@@ -118,8 +118,8 @@ public class CadastroMedicoTest {
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
-        Alert alert = driver.switchTo().alert();
-        String alertMessage = alert.getText();
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
 
         assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
         Thread.sleep(1000);
@@ -151,12 +151,48 @@ public class CadastroMedicoTest {
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
-        Alert alert = driver.switchTo().alert();
-        String alertMessage = alert.getText();
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
 
         assertEquals("Telefone inválido. Deve estar no formato XXXXXXXX", alertMessage);
         Thread.sleep(1000);
         alert.accept();
     }
+
+    @Test
+    @DisplayName("Should fill in a wrong email and show an error alert")
+
+    void shouldFillInAWrongEmailAndShowAnErrorAlert() throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial = new PaginaInicial(driver);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+
+        cadastroMedicos = new CadastroMedicos(driver);
+        cadastroMedicos.fillAllFields(
+                MedicFakerUtil.getRandomCRM(),
+                MedicFakerUtil.getNome(),
+                MedicFakerUtil.getDataNascimento(),
+                MedicFakerUtil.getSexo(),
+                MedicFakerUtil.getEspecialidade(),
+                MedicFakerUtil.getUniversidade(),
+                MedicFakerUtil.getWrongEmail(),
+                MedicFakerUtil.getTelefone()
+        );
+        Thread.sleep(1000);
+        cadastroMedicos.clickRegisterDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+
+        assertEquals("Email inválido.", alertMessage);
+        Thread.sleep(1000);
+        alert.accept();
+    }
+
 
 }
