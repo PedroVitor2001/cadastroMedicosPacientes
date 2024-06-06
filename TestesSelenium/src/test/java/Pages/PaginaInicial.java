@@ -6,7 +6,7 @@ import org.openqa.selenium.WebDriver;
 public class PaginaInicial {
     private WebDriver driver;
     private By buttonMedic = By.className("pagina-medicos");
-
+    private By buttonPatient = By.className("pagina-pacientes");
 
     public PaginaInicial(WebDriver driver)
     {
@@ -18,4 +18,7 @@ public class PaginaInicial {
         driver.findElement(buttonMedic).click();
     }
 
+    public void clickPatientPage(WebDriver driver) {
+        driver.findElement(buttonPatient).click();
+    }
 }
