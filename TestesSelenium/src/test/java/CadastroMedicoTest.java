@@ -12,10 +12,9 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import java.util.Random;
+import Faker.FakerUtil;
 import java.time.Duration;
-import java.util.Arrays;
-import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -27,28 +26,6 @@ public class CadastroMedicoTest {
     private  WebDriverWait webDriverWait;
     private Alert alert;
     private String alertMessage;
-    private Faker faker;
-    private String crm;
-    private String nome;
-    private String dataNascimento;
-    private String sexo;
-    private String universidade;
-    private String especialidade;
-    private String email;
-    private String telefone;
-    private String estado;
-    private String numero;
-    private Random random;
-
-    private static final List<String> estadosBrasileiros = Arrays.asList(
-            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS",
-            "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
-            "SP", "SE", "TO"
-    );
-
-    private String getRandomEstado() {
-        return estadosBrasileiros.get(random.nextInt(estadosBrasileiros.size()));
-    }
 
     @BeforeEach
     void setUp()
@@ -59,9 +36,7 @@ public class CadastroMedicoTest {
         driver = new ChromeDriver(options);
         paginaInicial = new PaginaInicial(driver);
         cadastroMedicos = new CadastroMedicos(driver);
-        faker = new Faker();
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        random = new Random();
     }
     @AfterEach
     void tearDown()
@@ -123,29 +98,29 @@ public class CadastroMedicoTest {
     @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
     void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage() throws InterruptedException{
         driver.get(url);
-
+        paginaInicial = new PaginaInicial(driver);
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
-        crm = faker.number().digits(20);
-        nome = faker.name().fullName();
-        dataNascimento = "01/01/1980";
-        sexo = faker.demographic().sex();
-        universidade = faker.university().name();
-        especialidade = "Cardiologista";
-        email = faker.internet().emailAddress();
-        telefone = faker.number().digits(11);
-
-        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+        cadastroMedicos = new CadastroMedicos(driver);
+        cadastroMedicos.fillAllFields(
+                FakerUtil.getWrongRandomCRM(),
+                FakerUtil.getNome(),
+                FakerUtil.getDataNascimento(),
+                FakerUtil.getSexo(),
+                FakerUtil.getEspecialidade(),
+                FakerUtil.getUniversidade(),
+                FakerUtil.getEmail(),
+                FakerUtil.getTelefone()
+        );
         Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
         Thread.sleep(1000);
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
-        alert = driver.switchTo().alert();
-
-        alertMessage = alert.getText();
+        Alert alert = driver.switchTo().alert();
+        String alertMessage = alert.getText();
 
         assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
         Thread.sleep(1000);
@@ -156,31 +131,29 @@ public class CadastroMedicoTest {
     @DisplayName("Should show an error in the message if it is not a correct phone number")
     void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber() throws InterruptedException{
         driver.get(url);
-
+        paginaInicial = new PaginaInicial(driver);
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
-        numero = faker.number().digits(7);
-        estado = getRandomEstado();
-        crm = numero + "/" + estado;
-        nome = faker.name().fullName();
-        dataNascimento = "01/01/1980";
-        sexo = faker.demographic().sex();
-        universidade = faker.university().name();
-        especialidade = "Cardiologista";
-        email = faker.internet().emailAddress();
-        telefone = faker.number().digits(11);
-
-        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+        cadastroMedicos = new CadastroMedicos(driver);
+        cadastroMedicos.fillAllFields(
+                FakerUtil.getRandomCRM(),
+                FakerUtil.getNome(),
+                FakerUtil.getDataNascimento(),
+                FakerUtil.getSexo(),
+                FakerUtil.getEspecialidade(),
+                FakerUtil.getUniversidade(),
+                FakerUtil.getEmail(),
+                FakerUtil.getTelefone()
+        );
         Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
         Thread.sleep(1000);
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
-        alert = driver.switchTo().alert();
-
-        alertMessage = alert.getText();
+        Alert alert = driver.switchTo().alert();
+        String alertMessage = alert.getText();
 
         assertEquals("Telefone inválido. Deve estar no formato XXXXXXXX", alertMessage);
         Thread.sleep(1000);
