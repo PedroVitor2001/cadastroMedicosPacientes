@@ -44,4 +44,15 @@ public class CadastroMedicoTest {
         Thread.sleep(1000);
     }
 
+    @Test
+    @DisplayName("Should click on the patient page button and redirect to the other page")
+    void shouldClickOnThePatientePageButtonAndRedirectToTheOtherPage()throws InterruptedException
+    {
+        driver.get(url);
+        Thread.sleep(1000);
+        paginaInicial.clickPatientPage();
+        Thread.sleep(1000);
+    }
+
+
 }
