@@ -130,7 +130,7 @@ public class ListagemMedicosTest {
         cadastroMedicos.clickDoctorsList();
         Thread.sleep(1000);
 
-        cadastroMedicos.clickListDoctor();
+        listaMedicos.clickListDoctor();
         Thread.sleep(1000);
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
