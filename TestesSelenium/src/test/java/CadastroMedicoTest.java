@@ -169,7 +169,6 @@ public class CadastroMedicoTest {
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
-        cadastroMedicos = new CadastroMedicos(driver);
         cadastroMedicos.fillAllFields(
                 MedicFakerUtil.getRandomCRM(),
                 MedicFakerUtil.getNome(),
@@ -177,7 +176,7 @@ public class CadastroMedicoTest {
                 MedicFakerUtil.getSexo(),
                 MedicFakerUtil.getEspecialidade(),
                 MedicFakerUtil.getUniversidade(),
-                MedicFakerUtil.getWrongEmail(),
+                MedicFakerUtil.getEmail(),
                 MedicFakerUtil.getTelefone()
         );
         Thread.sleep(1000);
@@ -193,6 +192,51 @@ public class CadastroMedicoTest {
         Thread.sleep(1000);
         alert.accept();
     }
+
+    @Test
+    @DisplayName("Should register a doctor, show an alert, and attempt to register the same doctor again with the correct message")
+    void shouldRegisterDoctorAndAttemptToRegisterAgain() throws InterruptedException {
+        driver.get(url);
+        paginaInicial = new PaginaInicial(driver);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+
+        String crm = MedicFakerUtil.getRandomCRM();
+        String nome = MedicFakerUtil.getNome();
+        String dataNascimento = MedicFakerUtil.getDataNascimento();
+        String sexo = MedicFakerUtil.getSexo();
+        String especialidade = MedicFakerUtil.getEspecialidade();
+        String universidade = MedicFakerUtil.getUniversidade();
+        String email = MedicFakerUtil.getEmail();
+        String telefone = MedicFakerUtil.getTelefone();
+
+        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+        Thread.sleep(1000);
+        cadastroMedicos.clickRegisterDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+        alert.accept();
+        Thread.sleep(1000);
+
+        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+        Thread.sleep(1000);
+        cadastroMedicos.clickRegisterDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("CRM já cadastrado.", alertMessage);
+        alert.accept();
+    }
+
+
 
 
 }
