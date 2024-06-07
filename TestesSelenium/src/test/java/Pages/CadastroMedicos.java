@@ -18,6 +18,8 @@ public class CadastroMedicos {
     private By telefoneField = By.id("telefone");
     private WebElement especialidadeDropdown;
     private Select select;
+    private By listMedics = By.xpath("//*[@id=\"cadastro-2\"]/div/a");
+
     public CadastroMedicos(WebDriver driver) {
         this.driver = driver;
     }
@@ -73,5 +75,8 @@ public class CadastroMedicos {
     }
 
 
+    public void clickDoctorsList() {
+        driver.findElement(listMedics).click();
+    }
 
 }

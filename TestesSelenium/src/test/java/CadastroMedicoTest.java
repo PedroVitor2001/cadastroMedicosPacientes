@@ -240,6 +240,7 @@ public class CadastroMedicoTest {
     void shouldClickAndGoToTheOtherDoctorListingPage() throws InterruptedException
     {
         driver.get(url);
+        paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
         cadastroMedicos.clickDoctorsList();
         Thread.sleep(1000);
