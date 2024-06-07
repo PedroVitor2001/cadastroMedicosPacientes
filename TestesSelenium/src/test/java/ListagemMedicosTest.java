@@ -140,6 +140,52 @@ public class ListagemMedicosTest {
         alert.accept();
     }
 
+    @Test
+    @DisplayName("Should list a doctor")
+    void shouldListADoctor()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        String crm = null;
+        for (int i = 0; i < 2; i++) {
+            crm = MedicFakerUtil.getRandomCRM();
+            cadastroMedicos.fillAllFields(
+                    crm,
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+
+
+            cadastroMedicos.clickRegisterDoctor();
+            Thread.sleep(1000);
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+            alert.accept();
+        }
+
+        listaMedicos.searchCRM(crm);
+
+        Thread.sleep(1000);
+        listaMedicos.clickListDoctor();
+        Thread.sleep(1000);
+
+        List<WebElement> doctorRows = listaMedicos.getDoctorRows();
+
+        assertEquals(1, doctorRows.size(), "The number of registered doctors should be 1.");
+    }
+
+
+
 
 }
 
