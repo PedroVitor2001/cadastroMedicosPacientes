@@ -120,6 +120,27 @@ public class ListagemMedicosTest {
         assertEquals(5, doctorRows.size(), "The number of registered doctors should be 5.");
     }
 
+    @Test
+    @DisplayName("Should return an alert to enter the CRM when clicking the list a button")
+    void shouldReturnAnAlertToEnterTheCRMWhenClickingTheListAButton() throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+        Thread.sleep(1000);
+
+        cadastroMedicos.clickListDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("Digite o CRM", alertMessage);
+        alert.accept();
+    }
+
+
 }
 
 
