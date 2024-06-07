@@ -9,7 +9,7 @@ import java.util.List;
 public class ListaMedicos {
     private WebDriver driver;
     private By listaAllButton = By.xpath("//*[@id=\"cadastro-2\"]/div/button[1]");
-    private By listDoctors = By.id("medicosTable");
+    private By doctorRows = By.xpath("//*[@id=\"medicosTable\"]/tbody/tr");
 
     public ListaMedicos(WebDriver driver) {
         this.driver = driver;
@@ -20,6 +20,6 @@ public class ListaMedicos {
     }
 
     public List<WebElement> getDoctorRows() {
-        return driver.findElements(listDoctors);
+        return driver.findElements(doctorRows);
     }
 }
