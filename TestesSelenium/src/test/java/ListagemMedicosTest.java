@@ -1,3 +1,4 @@
+import Faker.MedicFakerUtil;
 import Pages.CadastroMedicos;
 import Pages.ListaMedicos;
 import Pages.PaginaInicial;
@@ -67,5 +68,52 @@ public class ListagemMedicosTest {
         assertEquals("Nenhum objeto encontrado", alertMessage);
         alert.accept();
     }
+
+    @Test
+    @DisplayName("Should register some doctors, list them and check if you have been listed")
+    void shouldRegisterSomeDoctorsListThemAndCheckIfYouHaveBeenListed()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+
+        for (int i = 0; i < 5; i++) {
+            cadastroMedicos.fillAllFields(
+                    MedicFakerUtil.getRandomCRM(),
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+
+            cadastroMedicos.clickRegisterDoctor();
+            Thread.sleep(1000);
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+            alert.accept();
+        }
+
+        Thread.sleep(1000);
+
+        cadastroMedicos.clickDoctorsList();
+
+        Thread.sleep(1000);
+
+        listaMedicos.listAll();
+
+        Thread.sleep(1000);
+
+        listaMedicos.getDoctorRows();
+        Thread.sleep(1000);
+
+    }
+
 
 }
