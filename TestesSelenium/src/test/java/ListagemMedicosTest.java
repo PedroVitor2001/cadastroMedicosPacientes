@@ -173,6 +173,11 @@ public class ListagemMedicosTest {
             alert.accept();
         }
 
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+
+        Thread.sleep(1000);
+
         listaMedicos.searchCRM(crm);
 
         Thread.sleep(1000);
