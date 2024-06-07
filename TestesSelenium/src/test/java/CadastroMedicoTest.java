@@ -97,11 +97,10 @@ public class CadastroMedicoTest {
     @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
     void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage() throws InterruptedException{
         driver.get(url);
-        paginaInicial = new PaginaInicial(driver);
+
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
-        cadastroMedicos = new CadastroMedicos(driver);
         cadastroMedicos.fillAllFields(
                 MedicFakerUtil.getWrongRandomCRM(),
                 MedicFakerUtil.getNome(),
@@ -130,11 +129,10 @@ public class CadastroMedicoTest {
     @DisplayName("Should show an error in the message if it is not a correct phone number")
     void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber() throws InterruptedException{
         driver.get(url);
-        paginaInicial = new PaginaInicial(driver);
+
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
-        cadastroMedicos = new CadastroMedicos(driver);
         cadastroMedicos.fillAllFields(
                 MedicFakerUtil.getRandomCRM(),
                 MedicFakerUtil.getNome(),
@@ -165,7 +163,7 @@ public class CadastroMedicoTest {
     void shouldFillInAWrongEmailAndShowAnErrorAlert() throws InterruptedException
     {
         driver.get(url);
-        paginaInicial = new PaginaInicial(driver);
+
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 
@@ -176,7 +174,7 @@ public class CadastroMedicoTest {
                 MedicFakerUtil.getSexo(),
                 MedicFakerUtil.getEspecialidade(),
                 MedicFakerUtil.getUniversidade(),
-                MedicFakerUtil.getEmail(),
+                MedicFakerUtil.getWrongEmail(),
                 MedicFakerUtil.getTelefone()
         );
         Thread.sleep(1000);
@@ -197,7 +195,7 @@ public class CadastroMedicoTest {
     @DisplayName("Should register a doctor, show an alert, and attempt to register the same doctor again with the correct message")
     void shouldRegisterDoctorAndAttemptToRegisterAgain() throws InterruptedException {
         driver.get(url);
-        paginaInicial = new PaginaInicial(driver);
+
         paginaInicial.clickButtonMedic();
         Thread.sleep(1000);
 

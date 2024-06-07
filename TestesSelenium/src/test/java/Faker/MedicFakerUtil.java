@@ -51,11 +51,14 @@ public class MedicFakerUtil {
     }
 
     public static String getTelefone() {
-        return faker.number().digits(8);
+
+        String numeros = faker.number().digits(7);
+        return "1" + numeros;
+
     }
 
     public static String getWrongTelefone() {
-        return faker.number().digits(11);
+        return faker.number().digits(15);
     }
 
     private static final List<String> estadosBrasileiros = Arrays.asList(
