@@ -6,12 +6,16 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.time.Duration;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class ListagemMedicosTest {
     private WebDriver driver;
@@ -19,6 +23,8 @@ public class ListagemMedicosTest {
     private CadastroMedicos cadastroMedicos;
     private WebDriverWait webDriverWait;
     private ListaMedicos listaMedicos;
+    private Alert alert;
+    private String alertMessage;
     final String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
     @BeforeEach
     void setUp()
@@ -30,6 +36,7 @@ public class ListagemMedicosTest {
         paginaInicial = new PaginaInicial(driver);
         cadastroMedicos = new CadastroMedicos(driver);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        listaMedicos = new ListaMedicos(driver);
     }
 
     @AfterEach
@@ -50,6 +57,15 @@ public class ListagemMedicosTest {
         Thread.sleep(1000);
         listaMedicos.listAll();
         Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+        alert = driver.switchTo().alert();
+
+        alertMessage = alert.getText();
+
+        assertEquals("Nenhum objeto encontrado", alertMessage);
+        alert.accept();
     }
 
 }
