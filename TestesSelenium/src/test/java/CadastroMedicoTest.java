@@ -235,6 +235,16 @@ public class CadastroMedicoTest {
     }
 
 
+    @Test
+    @DisplayName("Should click and go to the other doctor listing page")
+    void shouldClickAndGoToTheOtherDoctorListingPage() throws InterruptedException
+    {
+        driver.get(url);
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+        Thread.sleep(1000);
+    }
+
 
 
 }
