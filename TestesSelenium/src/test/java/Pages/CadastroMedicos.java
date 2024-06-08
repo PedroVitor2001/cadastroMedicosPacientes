@@ -20,7 +20,7 @@ public class CadastroMedicos {
     private Select select;
     private By listMedics = By.xpath("//*[@id=\"cadastro-2\"]/div/a");
     private By saveEditions = By.xpath("//*[@id=\"AlterarMedico\"]");
-
+    private WebElement cadastrarButton;
     public CadastroMedicos(WebDriver driver) {
         this.driver = driver;
     }

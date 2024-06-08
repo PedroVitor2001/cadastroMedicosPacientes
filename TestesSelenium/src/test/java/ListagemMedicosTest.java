@@ -18,7 +18,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class ListagemMedicosTest {
     private WebDriver driver;
@@ -376,7 +376,7 @@ public class ListagemMedicosTest {
 
         cadastroMedicos.clickDoctorsList();
         Thread.sleep(1000);
-        
+
         listaMedicos.searchCRM(editCrm);
         Thread.sleep(1000);
 
@@ -386,6 +386,59 @@ public class ListagemMedicosTest {
         List<WebElement> doctorRows = listaMedicos.getDoctorRows();
 
         assertEquals(1, doctorRows.size(), "The number of registered doctors should be 1.");
+
+    }
+
+
+    @Test
+    @DisplayName("Should check that the fields have been set when you return to the registration page")
+    void shouldCheckThatTheFieldsHaveBeenSetWhenYouReturnToTheRegistrationPage()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        String crm = null;
+        for (int i = 0; i < 2; i++) {
+            crm = MedicFakerUtil.getRandomCRM();
+            cadastroMedicos.fillAllFields(
+                    crm,
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+
+
+            cadastroMedicos.clickRegisterDoctor();
+            Thread.sleep(1000);
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+            alert.accept();
+        }
+
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+
+        Thread.sleep(1000);
+
+        listaMedicos.searchCRM(crm);
+
+        Thread.sleep(1000);
+
+        listaMedicos.clickEditDoctor();
+        Thread.sleep(1000);
+
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+
+        assertFalse(cadastroMedicos.isRegisterButtonDisplayed(), "O botão Cadastrar não está presente na página.");
 
     }
 
