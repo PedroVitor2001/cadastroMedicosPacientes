@@ -456,7 +456,7 @@ public class ListagemMedicosTest {
 
         listaMedicos.clickDeleteDoctor();
         Thread.sleep(1000);
-        
+
         webDriverWait.until(ExpectedConditions.alertIsPresent());
         alert = driver.switchTo().alert();
         alertMessage = alert.getText();

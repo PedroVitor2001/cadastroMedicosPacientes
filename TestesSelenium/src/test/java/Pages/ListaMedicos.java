@@ -12,6 +12,7 @@ public class ListaMedicos {
     private By doctorRows = By.xpath("//*[@id=\"medicosTable\"]/tbody/tr");
     private By listDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[2]");
     private By editDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[3]");
+    private By deleteDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[4]");
     private By search = By.id("icrm");
     public ListaMedicos(WebDriver driver) {
         this.driver = driver;
@@ -36,5 +37,9 @@ public class ListaMedicos {
 
     public void clickEditDoctor() {
         driver.findElement(editDoctor).click();
+    }
+
+    public void clickDeleteDoctor() {
+        driver.findElement(deleteDoctor).click();
     }
 }
