@@ -189,6 +189,26 @@ public class ListagemMedicosTest {
         assertEquals(1, doctorRows.size(), "The number of registered doctors should be 1.");
     }
 
+    @Test
+    @DisplayName("Should click on change doctor and a message appears to enter the CRM")
+    void shouldClickOnChangeDoctorAndAMessageAppearsToEnterTheCRM()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+        Thread.sleep(1000);
+
+        listaMedicos.clickEditDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("Digite o CRM", alertMessage);
+        alert.accept();
+    }
+
 
 
 
