@@ -302,6 +302,94 @@ public class ListagemMedicosTest {
     }
 
 
+    @Test
+    @DisplayName("Should enter a CRM that is registered and change the data and check if it has been changed by looking for the CRM again and see if it has been listed")
+    void shouldEnterACRMThatIsRegisteredAndChangeTheDataAndCheckIfItHasBeenChangedByLookingForTheCRMAgainAndSeeIfItHasBeenListed()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        String crm = null;
+        String editCrm = null;
+        for (int i = 0; i < 2; i++) {
+            crm = MedicFakerUtil.getRandomCRM();
+            cadastroMedicos.fillAllFields(
+                    crm,
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+
+
+            cadastroMedicos.clickRegisterDoctor();
+            Thread.sleep(1000);
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+            alert.accept();
+        }
+
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+
+        Thread.sleep(1000);
+
+        listaMedicos.searchCRM(crm);
+
+        Thread.sleep(1000);
+
+        listaMedicos.clickEditDoctor();
+        Thread.sleep(1000);
+
+        cadastroMedicos.clearAllFields();
+        Thread.sleep(1000);
+
+        editCrm = MedicFakerUtil.getRandomCRM();
+
+        cadastroMedicos.fillAllFields(
+                editCrm,
+                MedicFakerUtil.getNome(),
+                MedicFakerUtil.getDataNascimento(),
+                MedicFakerUtil.getSexo(),
+                MedicFakerUtil.getEspecialidade(),
+                MedicFakerUtil.getUniversidade(),
+                MedicFakerUtil.getEmail(),
+                MedicFakerUtil.getTelefone()
+        );
+
+        cadastroMedicos.clickSaveEditDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("Cadastro atualizado com sucesso", alertMessage);
+        alert.accept();
+
+        cadastroMedicos.clickDoctorsList();
+        Thread.sleep(1000);
+        
+        listaMedicos.searchCRM(editCrm);
+        Thread.sleep(1000);
+
+        listaMedicos.clickListDoctor();
+        Thread.sleep(1000);
+
+        List<WebElement> doctorRows = listaMedicos.getDoctorRows();
+
+        assertEquals(1, doctorRows.size(), "The number of registered doctors should be 1.");
+
+    }
+
+
 
 }
 
