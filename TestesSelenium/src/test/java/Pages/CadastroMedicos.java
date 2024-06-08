@@ -95,4 +95,9 @@ public class CadastroMedicos {
     public void clickSaveEditDoctor() {
         driver.findElement(saveEditions).click();
     }
+
+    public boolean isRegisterButtonDisplayed() {
+        cadastrarButton = driver.findElement(buttonRegisterDoctor);
+        return cadastrarButton.isDisplayed();
+    }
 }
