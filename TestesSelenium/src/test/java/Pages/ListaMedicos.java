@@ -11,6 +11,7 @@ public class ListaMedicos {
     private By listaAllButton = By.xpath("//*[@id=\"cadastro-2\"]/div/button[1]");
     private By doctorRows = By.xpath("//*[@id=\"medicosTable\"]/tbody/tr");
     private By listDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[2]");
+    private By editDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[3]");
     private By search = By.id("icrm");
     public ListaMedicos(WebDriver driver) {
         this.driver = driver;
@@ -33,4 +34,7 @@ public class ListaMedicos {
     }
 
 
+    public void clickEditDoctor() {
+        driver.findElement(editDoctor).click();
+    }
 }
