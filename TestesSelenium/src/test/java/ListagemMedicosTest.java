@@ -230,6 +230,72 @@ public class ListagemMedicosTest {
         alert.accept();
     }
 
+    @Test
+    @DisplayName("Should enter a CRM that is registered and change the data")
+    void ShouldEnterACRMThatIsRegisteredAndChangeTheData()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        String crm = null;
+        for (int i = 0; i < 2; i++) {
+            crm = MedicFakerUtil.getRandomCRM();
+            cadastroMedicos.fillAllFields(
+                    crm,
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+
+
+            cadastroMedicos.clickRegisterDoctor();
+            Thread.sleep(1000);
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+            alert.accept();
+        }
+
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+
+        Thread.sleep(1000);
+
+        listaMedicos.searchCRM(crm);
+
+        Thread.sleep(1000);
+
+        listaMedicos.clickEditDoctor();
+        Thread.sleep(1000);
+
+        cadastroMedicos.clearAllFields();
+        Thread.sleep(1000);
+
+        cadastroMedicos.fillAllFields(
+                MedicFakerUtil.getRandomCRM(),
+                MedicFakerUtil.getNome(),
+                MedicFakerUtil.getDataNascimento(),
+                MedicFakerUtil.getSexo(),
+                MedicFakerUtil.getEspecialidade(),
+                MedicFakerUtil.getUniversidade(),
+                MedicFakerUtil.getEmail(),
+                MedicFakerUtil.getTelefone()
+        );
+
+        cadastroMedicos.clickSaveEditDoctor();
+        Thread.sleep(1000);
+
+
+
+    }
+
 
 
 }

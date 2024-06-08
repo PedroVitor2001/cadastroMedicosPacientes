@@ -74,6 +74,18 @@ public class CadastroMedicos {
         fillTelefoneField(telefone);
     }
 
+    public void clearAllFields() {
+        driver.findElement(crmField).clear();
+        driver.findElement(nomeField).clear();
+        driver.findElement(dataNascimentoField).clear();
+        driver.findElement(sexoField).clear();
+        selectEspecialidade("Cardiologista");
+        driver.findElement(universidadeField).clear();
+        driver.findElement(emailField).clear();
+        driver.findElement(telefoneField).clear();
+    }
+
+
 
     public void clickDoctorsList() {
         driver.findElement(listMedics).click();
