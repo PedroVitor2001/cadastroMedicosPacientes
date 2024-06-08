@@ -28,6 +28,7 @@ public class ListagemMedicosTest {
     private ListaMedicos listaMedicos;
     private Alert alert;
     private String alertMessage;
+
     final String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
     @BeforeEach
     void setUp()
@@ -209,6 +210,28 @@ public class ListagemMedicosTest {
         alert.accept();
     }
 
+    @Test
+    @DisplayName("Should enter a CRM that does not exist and click on search to try to change the doctor")
+    void shouldEnterACRMThatDoesNotExistAndClickOnSearchToTryToChangeTheDoctor()throws InterruptedException
+    {
+        driver.get(url);
+        paginaInicial.clickButtonMedic();
+        Thread.sleep(1000);
+        cadastroMedicos.clickDoctorsList();
+        Thread.sleep(1000);
+
+        listaMedicos.searchCRM(MedicFakerUtil.getRandomCRM());
+        Thread.sleep(1000);
+        
+        listaMedicos.clickEditDoctor();
+        Thread.sleep(1000);
+
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("Cadastro não encontrado.", alertMessage);
+        alert.accept();
+    }
 
 
 
