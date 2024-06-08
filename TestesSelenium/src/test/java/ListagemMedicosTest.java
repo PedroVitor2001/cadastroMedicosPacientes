@@ -113,9 +113,6 @@ public class ListagemMedicosTest {
 
         Thread.sleep(1000);
 
-        listaMedicos.getDoctorRows();
-        Thread.sleep(1000);
-
         List<WebElement> doctorRows = listaMedicos.getDoctorRows();
 
         assertEquals(5, doctorRows.size(), "The number of registered doctors should be 5.");
@@ -222,7 +219,7 @@ public class ListagemMedicosTest {
 
         listaMedicos.searchCRM(MedicFakerUtil.getRandomCRM());
         Thread.sleep(1000);
-        
+
         listaMedicos.clickEditDoctor();
         Thread.sleep(1000);
 

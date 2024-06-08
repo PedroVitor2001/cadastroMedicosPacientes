@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class MedicFakerUtil {
     private static final Faker faker = new Faker();
-
+    private static Random random = new Random();
     public static String getRandomCRM() {
         return faker.number().digits(7) + "/" + getRandomEstado();
     }
@@ -47,14 +47,13 @@ public class MedicFakerUtil {
                 getNome() .replaceAll(" ", "").toLowerCase()+"!@domain.com",
                 getNome() .replaceAll(" ", "").toLowerCase()+ "@domain"
         };
-        return wrongEmailPatterns[new Random().nextInt(wrongEmailPatterns.length)];
+        return wrongEmailPatterns[random.nextInt(wrongEmailPatterns.length)];
     }
 
     public static String getTelefone() {
-
-        String numeros = faker.number().digits(7);
-        return "1" + numeros;
-
+        int leadingDigits = random.nextInt(90) + 10;
+        String numeros = faker.number().digits(6);
+        return leadingDigits + numeros;
     }
 
     public static String getWrongTelefone() {
@@ -68,6 +67,6 @@ public class MedicFakerUtil {
     );
 
     private static String getRandomEstado() {
-        return estadosBrasileiros.get(new Random().nextInt(estadosBrasileiros.size()));
+        return estadosBrasileiros.get(random.nextInt(estadosBrasileiros.size()));
     }
 }
