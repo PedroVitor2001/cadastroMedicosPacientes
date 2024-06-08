@@ -51,9 +51,10 @@ public class MedicFakerUtil {
     }
 
     public static String getTelefone() {
-        int leadingDigits = random.nextInt(90) + 10;
+        int primeiroNumero = random.nextInt(9) + 1;
+        int segundoNumero = random.nextInt(9) + 1;
         String numeros = faker.number().digits(6);
-        return leadingDigits + numeros;
+        return primeiroNumero + "" + segundoNumero + numeros;
     }
 
     public static String getWrongTelefone() {
