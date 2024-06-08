@@ -47,7 +47,6 @@ public class CadastroMedicoTest {
     void shouldOpenAndCloseTheWebsite() throws InterruptedException {
         driver.get(url);
         Thread.sleep(1000);
-        driver.quit();
     }
 
     @Test
