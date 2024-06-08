@@ -292,7 +292,12 @@ public class ListagemMedicosTest {
         cadastroMedicos.clickSaveEditDoctor();
         Thread.sleep(1000);
 
+        webDriverWait.until(ExpectedConditions.alertIsPresent());
 
+        alert = driver.switchTo().alert();
+        alertMessage = alert.getText();
+        assertEquals("Cadastro atualizado com sucesso", alertMessage);
+        alert.accept();
 
     }
 

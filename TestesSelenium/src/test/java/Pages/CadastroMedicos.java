@@ -19,6 +19,7 @@ public class CadastroMedicos {
     private WebElement especialidadeDropdown;
     private Select select;
     private By listMedics = By.xpath("//*[@id=\"cadastro-2\"]/div/a");
+    private By saveEditions = By.xpath("//*[@id=\"AlterarMedico\"]");
 
     public CadastroMedicos(WebDriver driver) {
         this.driver = driver;
@@ -91,4 +92,7 @@ public class CadastroMedicos {
         driver.findElement(listMedics).click();
     }
 
+    public void clickSaveEditDoctor() {
+        driver.findElement(saveEditions).click();
+    }
 }
