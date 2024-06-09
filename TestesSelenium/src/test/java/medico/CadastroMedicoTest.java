@@ -1,3 +1,4 @@
+package medico;
 import Pages.CadastroMedicos;
 import Pages.PaginaInicial;
 import io.github.bonigarcia.wdm.WebDriverManager;

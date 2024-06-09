@@ -1,3 +1,4 @@
+package medico;
 import Faker.MedicFakerUtil;
 import Pages.CadastroMedicos;
 import Pages.ListaMedicos;
