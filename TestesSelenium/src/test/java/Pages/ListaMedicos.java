@@ -3,7 +3,10 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.List;
 
 public class ListaMedicos {
@@ -14,12 +17,15 @@ public class ListaMedicos {
     private By editDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[3]");
     private By deleteDoctor = By.xpath("//*[@id=\"cadastro-2\"]/div/button[4]");
     private By search = By.id("icrm");
+    private WebDriverWait wait;
+
     public ListaMedicos(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void listAll() {
-        driver.findElement(listaAllButton).click();
+        wait.until(ExpectedConditions.elementToBeClickable(listaAllButton)).click();
     }
 
     public List<WebElement> getDoctorRows() {
@@ -27,7 +33,7 @@ public class ListaMedicos {
     }
 
     public void clickListDoctor() {
-        driver.findElement(listDoctor).click();
+        wait.until(ExpectedConditions.elementToBeClickable(listDoctor)).click();
     }
 
     public void searchCRM(String crm) {
@@ -36,10 +42,10 @@ public class ListaMedicos {
 
 
     public void clickEditDoctor() {
-        driver.findElement(editDoctor).click();
+        wait.until(ExpectedConditions.elementToBeClickable(editDoctor)).click();
     }
 
     public void clickDeleteDoctor() {
-        driver.findElement(deleteDoctor).click();
+        wait.until(ExpectedConditions.elementToBeClickable(deleteDoctor)).click();
     }
 }

@@ -25,8 +25,8 @@ public class ListagemMedicosTest {
     private ListaMedicos listaMedicos;
     private Alert alert;
     private String alertMessage;
-
     final String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
+
     @BeforeEach
     void setUp()
     {
@@ -52,34 +52,25 @@ public class ListagemMedicosTest {
     {
         @Test
         @DisplayName("Should click on the button to list all doctors")
-        void shouldClickOnTheButtonToListAllDoctors() throws InterruptedException
+        void shouldClickOnTheButtonToListAllDoctors()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-            Thread.sleep(1000);
             listaMedicos.listAll();
-            Thread.sleep(1000);
-
             webDriverWait.until(ExpectedConditions.alertIsPresent());
-
             alert = driver.switchTo().alert();
-
             alertMessage = alert.getText();
-
             assertEquals("Nenhum objeto encontrado", alertMessage);
             alert.accept();
         }
 
         @Test
         @DisplayName("Should register some doctors, list them and check if you have been listed")
-        void shouldRegisterSomeDoctorsListThemAndCheckIfYouHaveBeenListed()throws InterruptedException
+        void shouldRegisterSomeDoctorsListThemAndCheckIfYouHaveBeenListed()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
-
             for (int i = 0; i < 5; i++) {
                 cadastroMedicos.fillAllFields(
                         MedicFakerUtil.getRandomCRM(),
@@ -93,28 +84,16 @@ public class ListagemMedicosTest {
                 );
 
                 cadastroMedicos.clickRegisterDoctor();
-                Thread.sleep(1000);
-
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
-
                 alert = driver.switchTo().alert();
                 alertMessage = alert.getText();
                 assertEquals("Cadastrado efetuado com sucesso", alertMessage);
                 alert.accept();
             }
 
-            Thread.sleep(1000);
-
             cadastroMedicos.clickDoctorsList();
-
-            Thread.sleep(1000);
-
             listaMedicos.listAll();
-
-            Thread.sleep(1000);
-
             List<WebElement> doctorRows = listaMedicos.getDoctorRows();
-
             assertEquals(5, doctorRows.size(), "The number of registered doctors should be 5.");
         }
     }
@@ -126,17 +105,12 @@ public class ListagemMedicosTest {
     {
         @Test
         @DisplayName("Should return an alert to enter the CRM when clicking the list a button")
-        void shouldReturnAnAlertToEnterTheCRMWhenClickingTheListAButton() throws InterruptedException
+        void shouldReturnAnAlertToEnterTheCRMWhenClickingTheListAButton()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-            Thread.sleep(1000);
-
             listaMedicos.clickListDoctor();
-            Thread.sleep(1000);
-
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             alert = driver.switchTo().alert();
             alertMessage = alert.getText();
@@ -146,11 +120,10 @@ public class ListagemMedicosTest {
 
         @Test
         @DisplayName("Should list a doctor")
-        void shouldListADoctor()throws InterruptedException
+        void shouldListADoctor()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
@@ -167,29 +140,17 @@ public class ListagemMedicosTest {
 
 
                 cadastroMedicos.clickRegisterDoctor();
-                Thread.sleep(1000);
-
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
-
                 alert = driver.switchTo().alert();
                 alertMessage = alert.getText();
                 assertEquals("Cadastrado efetuado com sucesso", alertMessage);
                 alert.accept();
             }
 
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-
-            Thread.sleep(1000);
-
             listaMedicos.searchCRM(crm);
-
-            Thread.sleep(1000);
             listaMedicos.clickListDoctor();
-            Thread.sleep(1000);
-
             List<WebElement> doctorRows = listaMedicos.getDoctorRows();
-
             assertEquals(1, doctorRows.size(), "The number of registered doctors should be 1.");
         }
     }
@@ -202,16 +163,12 @@ public class ListagemMedicosTest {
     {
         @Test
         @DisplayName("Should click on change doctor and a message appears to enter the CRM")
-        void shouldClickOnChangeDoctorAndAMessageAppearsToEnterTheCRM()throws InterruptedException
+        void shouldClickOnChangeDoctorAndAMessageAppearsToEnterTheCRM()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-            Thread.sleep(1000);
-
             listaMedicos.clickEditDoctor();
-            Thread.sleep(1000);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             alert = driver.switchTo().alert();
@@ -222,20 +179,13 @@ public class ListagemMedicosTest {
 
         @Test
         @DisplayName("Should enter a CRM that does not exist and click on search to try to change the doctor")
-        void shouldEnterACRMThatDoesNotExistAndClickOnSearchToTryToChangeTheDoctor()throws InterruptedException
+        void shouldEnterACRMThatDoesNotExistAndClickOnSearchToTryToChangeTheDoctor()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-            Thread.sleep(1000);
-
             listaMedicos.searchCRM(MedicFakerUtil.getRandomCRM());
-            Thread.sleep(1000);
-
             listaMedicos.clickEditDoctor();
-            Thread.sleep(1000);
-
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             alert = driver.switchTo().alert();
             alertMessage = alert.getText();
@@ -245,11 +195,11 @@ public class ListagemMedicosTest {
 
         @Test
         @DisplayName("Should enter a CRM that is registered and change the data")
-        void ShouldEnterACRMThatIsRegisteredAndChangeTheData()throws InterruptedException
+        void ShouldEnterACRMThatIsRegisteredAndChangeTheData()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
+
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
@@ -266,30 +216,20 @@ public class ListagemMedicosTest {
 
 
                 cadastroMedicos.clickRegisterDoctor();
-                Thread.sleep(1000);
-
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
-
                 alert = driver.switchTo().alert();
                 alertMessage = alert.getText();
                 assertEquals("Cadastrado efetuado com sucesso", alertMessage);
                 alert.accept();
             }
 
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-
-            Thread.sleep(1000);
 
             listaMedicos.searchCRM(crm);
 
-            Thread.sleep(1000);
-
             listaMedicos.clickEditDoctor();
-            Thread.sleep(1000);
 
             cadastroMedicos.clearAllFields();
-            Thread.sleep(1000);
 
             cadastroMedicos.fillAllFields(
                     MedicFakerUtil.getRandomCRM(),
@@ -303,7 +243,6 @@ public class ListagemMedicosTest {
             );
 
             cadastroMedicos.clickSaveEditDoctor();
-            Thread.sleep(1000);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
 
@@ -317,11 +256,11 @@ public class ListagemMedicosTest {
 
         @Test
         @DisplayName("Should enter a CRM that is registered and change the data and check if it has been changed by looking for the CRM again and see if it has been listed")
-        void shouldEnterACRMThatIsRegisteredAndChangeTheDataAndCheckIfItHasBeenChangedByLookingForTheCRMAgainAndSeeIfItHasBeenListed()throws InterruptedException
+        void shouldEnterACRMThatIsRegisteredAndChangeTheDataAndCheckIfItHasBeenChangedByLookingForTheCRMAgainAndSeeIfItHasBeenListed()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
+
             String crm = null;
             String editCrm = null;
             for (int i = 0; i < 2; i++) {
@@ -339,30 +278,21 @@ public class ListagemMedicosTest {
 
 
                 cadastroMedicos.clickRegisterDoctor();
-                Thread.sleep(1000);
-
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
-
                 alert = driver.switchTo().alert();
                 alertMessage = alert.getText();
                 assertEquals("Cadastrado efetuado com sucesso", alertMessage);
                 alert.accept();
             }
 
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-
-            Thread.sleep(1000);
 
             listaMedicos.searchCRM(crm);
 
-            Thread.sleep(1000);
-
             listaMedicos.clickEditDoctor();
-            Thread.sleep(1000);
 
             cadastroMedicos.clearAllFields();
-            Thread.sleep(1000);
+
 
             editCrm = MedicFakerUtil.getRandomCRM();
 
@@ -378,7 +308,6 @@ public class ListagemMedicosTest {
             );
 
             cadastroMedicos.clickSaveEditDoctor();
-            Thread.sleep(1000);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
 
@@ -388,16 +317,11 @@ public class ListagemMedicosTest {
             alert.accept();
 
             cadastroMedicos.clickDoctorsList();
-            Thread.sleep(1000);
 
             listaMedicos.searchCRM(editCrm);
-            Thread.sleep(1000);
 
             listaMedicos.clickListDoctor();
-            Thread.sleep(1000);
-
             List<WebElement> doctorRows = listaMedicos.getDoctorRows();
-
             assertEquals(1, doctorRows.size(), "The number of registered doctors should be 1.");
 
         }
@@ -405,11 +329,10 @@ public class ListagemMedicosTest {
 
         @Test
         @DisplayName("Should check that the fields have been set when you return to the registration page")
-        void shouldCheckThatTheFieldsHaveBeenSetWhenYouReturnToTheRegistrationPage()throws InterruptedException
+        void shouldCheckThatTheFieldsHaveBeenSetWhenYouReturnToTheRegistrationPage()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
@@ -426,7 +349,6 @@ public class ListagemMedicosTest {
 
 
                 cadastroMedicos.clickRegisterDoctor();
-                Thread.sleep(1000);
 
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
 
@@ -436,20 +358,13 @@ public class ListagemMedicosTest {
                 alert.accept();
             }
 
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-
-            Thread.sleep(1000);
 
             listaMedicos.searchCRM(crm);
 
-            Thread.sleep(1000);
-
             listaMedicos.clickEditDoctor();
-            Thread.sleep(1000);
 
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
 
             assertFalse(cadastroMedicos.isRegisterButtonDisplayed(), "O botão Cadastrar não está presente na página.");
 
@@ -462,18 +377,15 @@ public class ListagemMedicosTest {
     {
         @Test
         @DisplayName("Should click on delete a doctor and a message appears to enter the CRM")
-        void shouldClickOnDeleteADoctorAndAMessageAppearsToEnterTheCRM()throws InterruptedException
+        void shouldClickOnDeleteADoctorAndAMessageAppearsToEnterTheCRM()
         {
             driver.get(url);
 
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
 
             cadastroMedicos.clickDoctorsList();
-            Thread.sleep(1000);
 
             listaMedicos.clickDeleteDoctor();
-            Thread.sleep(1000);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             alert = driver.switchTo().alert();
@@ -484,11 +396,10 @@ public class ListagemMedicosTest {
 
         @Test
         @DisplayName("Should register two CRM, delete and check if deleted by listing the CRM")
-        void shouldRegisterTwoCRMDeleteAndCheckIfDeletedByListingTheCRM()throws InterruptedException
+        void shouldRegisterTwoCRMDeleteAndCheckIfDeletedByListingTheCRM()
         {
             driver.get(url);
             paginaInicial.clickButtonMedic();
-            Thread.sleep(1000);
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
@@ -505,8 +416,6 @@ public class ListagemMedicosTest {
 
 
                 cadastroMedicos.clickRegisterDoctor();
-                Thread.sleep(1000);
-
                 webDriverWait.until(ExpectedConditions.alertIsPresent());
 
                 alert = driver.switchTo().alert();
@@ -515,17 +424,11 @@ public class ListagemMedicosTest {
                 alert.accept();
             }
 
-            Thread.sleep(1000);
             cadastroMedicos.clickDoctorsList();
-
-            Thread.sleep(1000);
 
             listaMedicos.searchCRM(crm);
 
-            Thread.sleep(1000);
-
             listaMedicos.clickDeleteDoctor();
-            Thread.sleep(1000);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             alert = driver.switchTo().alert();
@@ -534,7 +437,6 @@ public class ListagemMedicosTest {
             alert.accept();
 
             listaMedicos.clickListDoctor();
-            Thread.sleep(1000);
 
             webDriverWait.until(ExpectedConditions.alertIsPresent());
 

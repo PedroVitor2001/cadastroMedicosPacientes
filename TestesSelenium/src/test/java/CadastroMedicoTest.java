@@ -44,49 +44,36 @@ public class CadastroMedicoTest {
     }
     @Test
     @DisplayName("Should open and close the website")
-    void shouldOpenAndCloseTheWebsite() throws InterruptedException {
+    void shouldOpenAndCloseTheWebsite(){
         driver.get(url);
-        Thread.sleep(1000);
     }
 
     @Test
     @DisplayName("Should click on the doctor's button and go to another page")
-    void shouldClickOnTheDoctorsButtonAndGoToAnotherPage() throws InterruptedException
+    void shouldClickOnTheDoctorsButtonAndGoToAnotherPage()
     {
         driver.get(url);
-        Thread.sleep(1000);
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
     }
 
     @Test
     @DisplayName("Should click on the patient page button and redirect to the other page")
-    void shouldClickOnThePatientePageButtonAndRedirectToTheOtherPage()throws InterruptedException
+    void shouldClickOnThePatientePageButtonAndRedirectToTheOtherPage()
     {
         driver.get(url);
-        Thread.sleep(1000);
         paginaInicial.clickPatientPage();
-        Thread.sleep(1000);
     }
 
     @Test
     @DisplayName("Should navigate to the doctor registration page, click on register and an alert should appear with a message")
-    void shouldNavigateToTheDoctorRegistrationPageClickOnRegisterAndAnAlertShouldAppearWithAMessage() throws InterruptedException
+    void shouldNavigateToTheDoctorRegistrationPageClickOnRegisterAndAnAlertShouldAppearWithAMessage()
     {
         driver.get(url);
-        Thread.sleep(1000);
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
-
         cadastroMedicos.clickRegisterDoctor();
-        Thread.sleep(1000);
-
         webDriverWait.until(ExpectedConditions.alertIsPresent());
-
         alert = driver.switchTo().alert();
-
         alertMessage = alert.getText();
-
         assertEquals("Todos os campos são obrigatórios.", alertMessage);
         alert.accept();
     }
@@ -94,11 +81,9 @@ public class CadastroMedicoTest {
 
     @Test
     @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
-    void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage() throws InterruptedException{
+    void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage(){
         driver.get(url);
-
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
 
         cadastroMedicos.fillAllFields(
                 MedicFakerUtil.getWrongRandomCRM(),
@@ -110,9 +95,7 @@ public class CadastroMedicoTest {
                 MedicFakerUtil.getEmail(),
                 MedicFakerUtil.getTelefone()
         );
-        Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
-        Thread.sleep(1000);
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
@@ -120,17 +103,15 @@ public class CadastroMedicoTest {
         alertMessage = alert.getText();
 
         assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
-        Thread.sleep(1000);
+
         alert.accept();
     }
 
     @Test
     @DisplayName("Should show an error in the message if it is not a correct phone number")
-    void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber() throws InterruptedException{
+    void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber(){
         driver.get(url);
-
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
 
         cadastroMedicos.fillAllFields(
                 MedicFakerUtil.getRandomCRM(),
@@ -142,29 +123,23 @@ public class CadastroMedicoTest {
                 MedicFakerUtil.getEmail(),
                 MedicFakerUtil.getWrongTelefone()
         );
-        Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
-        Thread.sleep(1000);
-
         webDriverWait.until(ExpectedConditions.alertIsPresent());
-
         alert = driver.switchTo().alert();
         alertMessage = alert.getText();
-
         assertEquals("Telefone inválido. Deve estar no formato XXXXXXXX", alertMessage);
-        Thread.sleep(1000);
         alert.accept();
     }
 
     @Test
     @DisplayName("Should fill in a wrong email and show an error alert")
 
-    void shouldFillInAWrongEmailAndShowAnErrorAlert() throws InterruptedException
+    void shouldFillInAWrongEmailAndShowAnErrorAlert()
     {
         driver.get(url);
 
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
+
 
         cadastroMedicos.fillAllFields(
                 MedicFakerUtil.getRandomCRM(),
@@ -176,9 +151,8 @@ public class CadastroMedicoTest {
                 MedicFakerUtil.getWrongEmail(),
                 MedicFakerUtil.getTelefone()
         );
-        Thread.sleep(1000);
+
         cadastroMedicos.clickRegisterDoctor();
-        Thread.sleep(1000);
 
         webDriverWait.until(ExpectedConditions.alertIsPresent());
 
@@ -186,17 +160,16 @@ public class CadastroMedicoTest {
         alertMessage = alert.getText();
 
         assertEquals("Email inválido.", alertMessage);
-        Thread.sleep(1000);
+
         alert.accept();
     }
 
     @Test
     @DisplayName("Should register a doctor, show an alert, and attempt to register the same doctor again with the correct message")
-    void shouldRegisterDoctorAndAttemptToRegisterAgain() throws InterruptedException {
+    void shouldRegisterDoctorAndAttemptToRegisterAgain() {
         driver.get(url);
 
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
 
         String crm = MedicFakerUtil.getRandomCRM();
         String nome = MedicFakerUtil.getNome();
@@ -208,25 +181,15 @@ public class CadastroMedicoTest {
         String telefone = MedicFakerUtil.getTelefone();
 
         cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
-        Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
-        Thread.sleep(1000);
-
         webDriverWait.until(ExpectedConditions.alertIsPresent());
-
         alert = driver.switchTo().alert();
         alertMessage = alert.getText();
         assertEquals("Cadastrado efetuado com sucesso", alertMessage);
         alert.accept();
-        Thread.sleep(1000);
-
         cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
-        Thread.sleep(1000);
         cadastroMedicos.clickRegisterDoctor();
-        Thread.sleep(1000);
-
         webDriverWait.until(ExpectedConditions.alertIsPresent());
-
         alert = driver.switchTo().alert();
         alertMessage = alert.getText();
         assertEquals("CRM já cadastrado.", alertMessage);
@@ -236,13 +199,11 @@ public class CadastroMedicoTest {
 
     @Test
     @DisplayName("Should click and go to the other doctor listing page")
-    void shouldClickAndGoToTheOtherDoctorListingPage() throws InterruptedException
+    void shouldClickAndGoToTheOtherDoctorListingPage()
     {
         driver.get(url);
         paginaInicial.clickButtonMedic();
-        Thread.sleep(1000);
         cadastroMedicos.clickDoctorsList();
-        Thread.sleep(1000);
     }
 
 

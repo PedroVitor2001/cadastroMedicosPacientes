@@ -3,7 +3,11 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import java.time.Duration;
 
 public class CadastroMedicos {
     private WebDriver driver;
@@ -21,12 +25,23 @@ public class CadastroMedicos {
     private By listMedics = By.xpath("//*[@id=\"cadastro-2\"]/div/a");
     private By saveEditions = By.xpath("//*[@id=\"AlterarMedico\"]");
     private WebElement cadastrarButton;
+    private WebDriverWait wait;
+
     public CadastroMedicos(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
     public void clickRegisterDoctor() {
-        driver.findElement(buttonRegisterDoctor).click();
+        wait.until(ExpectedConditions.elementToBeClickable(buttonRegisterDoctor)).click();
+    }
+
+    public void clickDoctorsList() {
+        wait.until(ExpectedConditions.elementToBeClickable(listMedics)).click();
+    }
+
+    public void clickSaveEditDoctor() {
+        wait.until(ExpectedConditions.elementToBeClickable(saveEditions)).click();
     }
 
     public void fillCrmField(String crm) {
@@ -84,16 +99,6 @@ public class CadastroMedicos {
         driver.findElement(universidadeField).clear();
         driver.findElement(emailField).clear();
         driver.findElement(telefoneField).clear();
-    }
-
-
-
-    public void clickDoctorsList() {
-        driver.findElement(listMedics).click();
-    }
-
-    public void clickSaveEditDoctor() {
-        driver.findElement(saveEditions).click();
     }
 
     public boolean isRegisterButtonDisplayed() {
