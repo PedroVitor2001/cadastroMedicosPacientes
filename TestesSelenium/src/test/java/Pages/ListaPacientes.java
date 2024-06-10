@@ -5,8 +5,11 @@ import java.util.List;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ListaPacientes {
+    private WebDriver driver;
     private WebElement medicoPageBtn;
     private WebElement pacientePageBtn;
     private WebElement sairBtn;
@@ -15,7 +18,7 @@ public class ListaPacientes {
     private WebElement editBtn;
     private WebElement deleteBtn;
     private WebElement cpfField;
-    private WebElement saveEditBtn;
+    private WebDriverWait wait;
     private List<WebElement> patientRows;
 
     public ListaPacientes(WebDriver driver){
@@ -28,21 +31,21 @@ public class ListaPacientes {
         this.listBtn = driver.findElement(By.xpath("//button[@onClick='ListarUm()']"));
         this.editBtn = driver.findElement(By.xpath("//button[@onClick='Alterar()']"));
         this.deleteBtn = driver.findElement(By.xpath("//button[@onClick='Excluir()']"));
-        this.saveEditBtn = driver.findElement(By.xpath("//button[@onClick='AlterarPaciente()']"));
 
         this.patientRows = driver.findElements(By.xpath("//*[@id=\"pacientesTable\"]/tbody/tr"));
     }    
 
     public void clickPacientePageBtn() {
-        pacientePageBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(pacientePageBtn)).click();
     }
     
+    
     public void clickMedicoPageBtn() {
-        medicoPageBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(medicoPageBtn)).click();
     }
 
     public void clickSairBtn() {
-        sairBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(sairBtn)).click();
     }
 
     public void setCPF(String cpf) {
@@ -50,23 +53,19 @@ public class ListaPacientes {
     }
 
     public void clickListAllBtn() {
-        listAllBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(listAllBtn)).click();
     }
 
     public void clickListBtn() {
-        listBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(listBtn)).click();
     }
 
     public void clickEditBtn() {
-        editBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(editBtn)).click();
     }
 
     public void clickDeleteBtn() {
-        deleteBtn.click();
-    }
-
-    public void clickSaveEditBtn() {
-        saveEditBtn.click();
+        wait.until(ExpectedConditions.elementToBeClickable(deleteBtn)).click();
     }
 
     public List<WebElement> getPatientRows() {

@@ -18,25 +18,29 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Pages.CadastroPacientesPage;
 import Pages.ListaPacientes;
+import Pages.PaginaInicial;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class ListagemPacienteTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
-    private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/dadosPaciente.html";
+    private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
     private ListaPacientes listaPacientePage;
+    private PaginaInicial paginaInicial;
 
     @BeforeEach
     void setUp() {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-        
+    
         driver = new ChromeDriver(options);
         driver.get(url);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         listaPacientePage = new ListaPacientes(driver); 
+        paginaInicial = new PaginaInicial(driver);
     }
 
     @AfterEach
@@ -177,7 +181,6 @@ public class ListagemPacienteTest {
 
             listaPacientePage.setCPF("cpf");
             listaPacientePage.clickEditBtn();
-            listaPacientePage.clickSaveEditBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Cadastro atualizado com sucesso", alertText);
@@ -190,7 +193,6 @@ public class ListagemPacienteTest {
 
             listaPacientePage.setCPF("cpf");
             listaPacientePage.clickEditBtn();
-            listaPacientePage.clickSaveEditBtn();
 
             //checar se o campo mudo
         }
