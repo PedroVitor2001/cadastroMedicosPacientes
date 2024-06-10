@@ -1,7 +1,5 @@
 package Faker;
 import com.github.javafaker.Faker;
-import java.util.Arrays;
-import java.util.List;
 import java.util.Random;
 
 public class PatientFakerUtil {
@@ -26,10 +24,6 @@ public class PatientFakerUtil {
 
     public static String getSexo() {
         return faker.demographic().sex();
-    }
-
-    public static String getUniversidade() {
-        return faker.university().name();
     }
 
     public static String getPlano() {
@@ -61,15 +55,5 @@ public class PatientFakerUtil {
 
     public static String getWrongTelefone() {
         return faker.number().digits(15);
-    }
-
-    private static final List<String> estadosBrasileiros = Arrays.asList(
-            "AC", "AL", "AP", "AM", "BA", "CE", "DF", "ES", "GO", "MA", "MT", "MS",
-            "MG", "PA", "PB", "PR", "PE", "PI", "RJ", "RN", "RS", "RO", "RR", "SC",
-            "SP", "SE", "TO"
-    );
-
-    private static String getRandomEstado() {
-        return estadosBrasileiros.get(random.nextInt(estadosBrasileiros.size()));
     }
 }
