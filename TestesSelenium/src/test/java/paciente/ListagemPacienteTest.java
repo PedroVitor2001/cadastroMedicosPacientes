@@ -3,13 +3,16 @@ package paciente;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.time.Duration;
+import java.util.List;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -138,11 +141,29 @@ public class ListagemPacienteTest {
 }
 
     @Nested
-    @DisplayName("List pacientes")
-    class ListPacientes {
+    @DisplayName("List patients")
+    class ListPatients {
         @Test
-        public void lista(){
+        @DisplayName("Should list one patients")
+        public void shouldListAPatient(){
+            //cadastrar um paciente com cpf pra ser checado
+
+            listaPacientePage.setCPF("cpfchecado");
+            listaPacientePage.clickListBtn();
+            List<WebElement> patientRows = listaPacientePage.getPatientRows();
+
+            assertEquals(1, patientRows.size(), "The number of registered patients should be 1.");
+        }
+
+        @Test
+        @DisplayName("Should list all patients")
+        public void shouldListAllPacients(){
+            //cadastrar multiplos pacientes 
+
             listaPacientePage.clickListAllBtn();
+            List<WebElement> patientRows = listaPacientePage.getPatientRows();
+
+            assertEquals(3, patientRows.size(), "The number of registered patients should be 3.");
         }
     }
 }
