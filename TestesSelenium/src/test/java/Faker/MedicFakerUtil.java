@@ -14,6 +14,14 @@ public class MedicFakerUtil {
         return faker.number().digits(20);
     }
 
+    public static String getRandomCPF() {
+        return String.format("%s.%s.%s-%s", faker.number().digits(3), faker.number().digits(3), 
+                faker.number().digits(3), faker.number().digits(2));
+    }
+    public static String getWrongRandomCPF() {
+        return faker.number().digits(20);
+    }
+
     public static String getNome() {
         return faker.name().fullName();
     }
