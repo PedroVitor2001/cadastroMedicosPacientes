@@ -26,9 +26,9 @@ public class CadastroPacientesPage {
     public CadastroPacientesPage(WebDriver driver) {
         this.driver = driver;
 
-        this.medicPagebtn = driver.findElement(By.xpath("/body/header/div/nav/a[1]"));
-        this.medicPagebtn = driver.findElement(By.xpath("/body/header/div/nav/a[2]"));
-        this.medicPagebtn = driver.findElement(By.xpath("/body/header/div/nav/a[3]"));
+        this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[1]"));
+        this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[2]"));
+        this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[3]"));
 
         this.CPFField = driver.findElement(By.id("cpf"));
         this.nomeField = driver.findElement(By.id("nome"));
