@@ -177,7 +177,7 @@ public class ListagemPacienteTest {
 
             listaPacientePage.setCPF("cpf");
             listaPacientePage.clickEditBtn();
-            listaPacientePage.saveEditBtn();
+            listaPacientePage.clickSaveEditBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Cadastro atualizado com sucesso", alertText);
@@ -190,7 +190,7 @@ public class ListagemPacienteTest {
 
             listaPacientePage.setCPF("cpf");
             listaPacientePage.clickEditBtn();
-            listaPacientePage.saveEditBtn();
+            listaPacientePage.clickSaveEditBtn();
 
             //checar se o campo mudo
         }

@@ -15,6 +15,7 @@ public class ListaPacientes {
     private WebElement editBtn;
     private WebElement deleteBtn;
     private WebElement cpfField;
+    private WebElement saveEditBtn;
     private List<WebElement> patientRows;
 
     public ListaPacientes(WebDriver driver){
@@ -27,6 +28,8 @@ public class ListaPacientes {
         this.listBtn = driver.findElement(By.xpath("//button[@onClick='ListarUm()']"));
         this.editBtn = driver.findElement(By.xpath("//button[@onClick='Alterar()']"));
         this.deleteBtn = driver.findElement(By.xpath("//button[@onClick='Excluir()']"));
+        this.saveEditBtn = driver.findElement(By.xpath("//button[@onClick='AlterarPaciente()']"));
+
         this.patientRows = driver.findElements(By.xpath("//*[@id=\"pacientesTable\"]/tbody/tr"));
     }    
 
@@ -60,6 +63,10 @@ public class ListaPacientes {
 
     public void clickDeleteBtn() {
         deleteBtn.click();
+    }
+
+    public void clickSaveEditBtn() {
+        saveEditBtn.click();
     }
 
     public List<WebElement> getPatientRows() {
