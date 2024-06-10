@@ -49,4 +49,23 @@ public class CadastroPacienteTest {
 
         assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
     }
+
+    @Test
+    @DisplayName("Should not register a new patient with blank fields")
+    public void shouldNotRegisterANewPatientWithBlankFields() {
+        page.setCPF(" ");
+        page.setNome(" ");
+        page.setSexo(" ");
+        page.setPlano(" ");
+        page.setData(" ");
+        page.setEmail(" ");
+        page.setTelefone(" ");
+
+        page.cadastrar();
+
+        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
+    }
 }
