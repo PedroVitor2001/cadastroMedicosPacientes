@@ -20,10 +20,10 @@ public class ListaPacientes {
         this.sairBtn = driver.findElement(By.className("sair"));
 
         this.CPFField = driver.findElement(By.id("icpf"));
-        this.listAllBtn = driver.findElement(By.cssSelector("button.botao[type='submit'][text*='Listar todos']"));
-        this.listBtn = driver.findElement(By.cssSelector("button.botao[type='submit'][text*='Listar Um']"));
-        this.editBtn = driver.findElement(By.cssSelector("button.botao[type='submit'][text*='Alterar']"));
-        this.deleteBtn = driver.findElement(By.cssSelector("button.botao[type='submit'][text*='Excluir']"));
+        this.listBtn = driver.findElement(By.xpath("//button[@onClick='mostrar()']"));
+        this.listBtn = driver.findElement(By.xpath("//button[@onClick='ListarUm()']"));
+        this.editBtn = driver.findElement(By.xpath("//button[@onClick='Alterar()']"));
+        this.deleteBtn = driver.findElement(By.xpath("//button[@onClick='Excluir()']"));
     }    
 
     public void clickPacientePageBtn() {
