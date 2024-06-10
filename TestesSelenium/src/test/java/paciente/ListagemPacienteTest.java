@@ -166,4 +166,49 @@ public class ListagemPacienteTest {
             assertEquals(3, patientRows.size(), "The number of registered patients should be 3.");
         }
     }
+
+    @Nested
+    @DisplayName("Edit patient")
+    class EditPatient {
+        @Test
+        @DisplayName("Should display alert 'Cadastro atualizado com sucesso' after saving changes in edit patient")
+        void shouldDisplaySucessAlertAfterSavingChangesInEditPatient() {
+            //cadastra paciente
+
+            listaPacientePage.setCPF("cpf");
+            listaPacientePage.clickEditBtn();
+            listaPacientePage.saveEditBtn();
+
+            String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
+            assertEquals("Cadastro atualizado com sucesso", alertText);
+        }
+
+        @Test
+        @DisplayName("should Check if changes were made once patient is sucessfully edited")
+        void shouldCheckIfChangesWereMadeOncePatientIsSucessfullyEdited() {
+            //cadastra paciente
+
+            listaPacientePage.setCPF("cpf");
+            listaPacientePage.clickEditBtn();
+            listaPacientePage.saveEditBtn();
+
+            //checar se o campo mudo
+        }
+    }
+
+    @Nested
+    @DisplayName("delete patient")
+    class DeletePatient {
+        @Test
+        @DisplayName("should Check if patient got deleted")
+        void shouldCheckIfPatientGotDeleted() {
+            //cadastra paciente
+
+            listaPacientePage.clickDeleteBtn();
+            List<WebElement> patientRows = listaPacientePage.getPatientRows();
+
+            assertEquals(0, patientRows.size(), "The number of registered patients should be 0.");
+        }
+        
+    }
 }
