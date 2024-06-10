@@ -107,8 +107,34 @@ public class ListagemPacienteTest {
     @Nested
     @DisplayName("CPF não encontrado")
     class CPFNaoEncontrado{
-        
-    }
+        @Test
+        @DisplayName("Should display alert 'Cadastro não encontrado' after clicking list button with wrong CPF")
+        public void shouldDisplayAlertOnWrongCpfAfterClickingListButtonWithWrongCPF() {
+            page.setCPF("123.456.789-09");
+            page.clickListBtn();
 
+            String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
+            assertEquals("Cadastro não encontrado.", alertText);
+        }
 
+        @Test
+        @DisplayName("Should display alert 'Cadastro não encontrado' after clicking edit button with wrong CPF")
+        public void shouldDisplayAlertOnWrongCpfAfterClickingEditButtonWithWrongCPF() {
+            page.setCPF("123.456.789-09");
+            page.clickEditBtn();
+
+            String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
+            assertEquals("Cadastro não encontrado.", alertText);
+        }
+
+        @Test
+        @DisplayName("Should display alert 'Cadastro não encontrado' after clicking delete button with wrong CPF")
+        public void shouldDisplayAlertOnWrongCpfAfterClickingDeleteButtonWithWrongCPF() {
+            page.setCPF("123.456.789-09");
+            page.clickDeleteBtn();
+
+            String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
+            assertEquals("Cadastro não encontrado.", alertText);
+        }
+}
 }
