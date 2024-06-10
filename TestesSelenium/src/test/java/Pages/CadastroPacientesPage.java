@@ -46,4 +46,32 @@ public class CadastroPacientesPage {
     public void cadastrar() {
         cadastrarbtn.click();
     }
+
+    public void setCPF(String CPF) {
+        CPFField.sendKeys(CPF);
+    }
+
+    public void setNome(String nome) {
+        nomeField.sendKeys(nome);
+    }
+
+    public void setSexo(String sexo) {
+        sexoField.sendKeys(sexo);
+    }
+
+    public void setPlano(String plano) {
+        planoField.sendKeys(plano);
+    }
+
+    public void setData(String data) {
+        dataNascimentoField.sendKeys(data);
+    }
+
+    public void setEmail(String email) {
+        emailField.sendKeys(email);
+    }
+
+    public void setTelefone(String telefone) {
+        telefoneField.sendKeys(telefone);
+    }
 }
