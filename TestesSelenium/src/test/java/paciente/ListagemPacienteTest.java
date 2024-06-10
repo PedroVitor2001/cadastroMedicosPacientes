@@ -74,7 +74,7 @@ public class ListagemPacienteTest {
     }
 
     @Nested
-    @DisplayName("Empty CPF")
+    @DisplayName("When empty CPF")
     class EmptyCPF{
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking listbtn")
@@ -105,7 +105,7 @@ public class ListagemPacienteTest {
     }
     
     @Nested
-    @DisplayName("CPF não encontrado")
+    @DisplayName("When wrong CPF")
     class CPFNaoEncontrado{
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking list button with wrong CPF")
