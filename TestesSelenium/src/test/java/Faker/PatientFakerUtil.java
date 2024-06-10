@@ -4,13 +4,15 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-public class MedicFakerUtil {
+public class PatientFakerUtil {
     private static final Faker faker = new Faker();
     private static Random random = new Random();
-    public static String getRandomCRM() {
-        return faker.number().digits(7) + "/" + getRandomEstado();
+
+    public static String getRandomCPF() {
+        return String.format("%s.%s.%s-%s", faker.number().digits(3), faker.number().digits(3), 
+                faker.number().digits(3), faker.number().digits(2));
     }
-    public static String getWrongRandomCRM() {
+    public static String getWrongRandomCPF() {
         return faker.number().digits(20);
     }
 
@@ -30,8 +32,8 @@ public class MedicFakerUtil {
         return faker.university().name();
     }
 
-    public static String getEspecialidade() {
-        return "Cardiologista";
+    public static String getPlano() {
+        return "Plano cardiologia de saude";
     }
 
     public static String getEmail() {
