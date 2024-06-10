@@ -1,9 +1,12 @@
 package paciente;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -35,6 +38,29 @@ public class ListagemPacienteTest {
     @Nested
     @DisplayName("Header buttons")
     class Header{
+        @Test
+        @DisplayName("Should click on 'Página de Médicos' button and navigate to the médicos page")
+        void ShouldClickOnPageDeMedicosButtonAndNavigateToTheMedicosPage() {
+            String expectedDoctorPageUrl = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/medicos.html";
+            page.clickMedicoPageBtn();
+            assertEquals(expectedDoctorPageUrl, driver.getCurrentUrl());
+        }
+
+        @Test
+        @DisplayName("Should click on 'Página de Pacientes' button and navigate to the pacientes page")
+        void ShouldClickOnPaginaDePacientesButtonAndNavigateToThePacientesPage() {
+            String expectedDoctorPageUrl = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
+            page.clickPacientePageBtn();
+            assertEquals(expectedDoctorPageUrl, driver.getCurrentUrl());
+        }
+
+        @Test
+        @DisplayName("Should click on 'Sair' button and navigate to the index page")
+        void ShouldClickOnSairButtonAndNavigateToTheIndexPage() {
+            String expectedDoctorPageUrl = "https://cadastro-medicos-pacientes-a4n9.vercel.app/index.html";
+            page.clickSairBtn();
+            assertEquals(expectedDoctorPageUrl, driver.getCurrentUrl());
+        }
         
     }
 

@@ -15,8 +15,8 @@ public class ListaPacientes {
     private WebElement CPFField;
 
     public ListaPacientes(WebDriver driver){
-        this.pacientePageBtn = driver.findElement(By.className("pagina-medicos"));
-        this.medicoPageBtn = driver.findElement(By.className("pagina-pacientes"));
+        this.pacientePageBtn = driver.findElement(By.className("pagina-pacientes"));
+        this.medicoPageBtn = driver.findElement(By.className("pagina-medicos"));
         this.sairBtn = driver.findElement(By.className("sair"));
 
         this.CPFField = driver.findElement(By.id("icpf"));
