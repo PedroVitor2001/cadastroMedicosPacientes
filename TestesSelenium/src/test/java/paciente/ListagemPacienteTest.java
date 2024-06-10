@@ -41,28 +41,42 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should click on 'Página de Médicos' button and navigate to the médicos page")
         void ShouldClickOnPageDeMedicosButtonAndNavigateToTheMedicosPage() {
-            String expectedDoctorPageUrl = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/medicos.html";
+            String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/medicos.html";
             page.clickMedicoPageBtn();
-            assertEquals(expectedDoctorPageUrl, driver.getCurrentUrl());
+
+            assertEquals(expectedPage, driver.getCurrentUrl());
         }
 
         @Test
         @DisplayName("Should click on 'Página de Pacientes' button and navigate to the pacientes page")
         void ShouldClickOnPaginaDePacientesButtonAndNavigateToThePacientesPage() {
-            String expectedDoctorPageUrl = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
+            String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
             page.clickPacientePageBtn();
-            assertEquals(expectedDoctorPageUrl, driver.getCurrentUrl());
+
+            assertEquals(expectedPage, driver.getCurrentUrl());
         }
 
         @Test
         @DisplayName("Should click on 'Sair' button and navigate to the index page")
         void ShouldClickOnSairButtonAndNavigateToTheIndexPage() {
-            String expectedDoctorPageUrl = "https://cadastro-medicos-pacientes-a4n9.vercel.app/index.html";
+            String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/index.html";
             page.clickSairBtn();
-            assertEquals(expectedDoctorPageUrl, driver.getCurrentUrl());
+
+            assertEquals(expectedPage, driver.getCurrentUrl());
         }
+    }
+
+    @Nested
+    @DisplayName("Empty CPF")
+    class EmptyCPF{
+        
+    }
+    
+    @Nested
+    @DisplayName("CPF não encontrado")
+    class CPFNaoEncontrado{
         
     }
 
-    
+
 }
