@@ -5,8 +5,6 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 public class ListaPacientes {
-    private WebDriver driver;
-
     private WebElement medicoPageBtn;
     private WebElement pacientePageBtn;
     private WebElement sairBtn;
@@ -17,8 +15,6 @@ public class ListaPacientes {
     private WebElement CPFField;
 
     public ListaPacientes(WebDriver driver){
-        this.driver = driver;
-
         this.pacientePageBtn = driver.findElement(By.className("pagina-medicos"));
         this.medicoPageBtn = driver.findElement(By.className("pagina-pacientes"));
         this.sairBtn = driver.findElement(By.className("sair"));
@@ -29,4 +25,36 @@ public class ListaPacientes {
         this.editBtn = driver.findElement(By.cssSelector("button.botao[type='submit'][text*='Alterar']"));
         this.deleteBtn = driver.findElement(By.cssSelector("button.botao[type='submit'][text*='Excluir']"));
     }    
+
+    public void clickPacientePageBtn() {
+        pacientePageBtn.click();
+    }
+    
+    public void clickMedicoPageBtn() {
+        medicoPageBtn.click();
+    }
+
+    public void clickSairBtn() {
+        sairBtn.click();
+    }
+
+    public void setCPF(String cpf) {
+        CPFField.sendKeys(cpf);
+    }
+
+    public void clickListAllBtn() {
+        listAllBtn.click();
+    }
+
+    public void clickListBtn() {
+        listBtn.click();
+    }
+
+    public void clickEditBtn() {
+        editBtn.click();
+    }
+
+    public void clickDeleteBtn() {
+        deleteBtn.click();
+    }
 }
