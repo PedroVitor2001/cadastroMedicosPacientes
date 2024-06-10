@@ -42,4 +42,8 @@ public class CadastroPacientesPage {
 
         this.listarPacientesbtn = driver.findElement(By.cssSelector(".cadastro-sec .collum-2 .campos a"));
     }
+
+    public void cadastrar() {
+        cadastrarbtn.click();
+    }
 }
