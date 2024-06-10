@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -23,7 +22,7 @@ public class ListagemPacienteTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
     private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/dadosPaciente.html";
-    private ListaPacientes page;
+    private ListaPacientes listaPacientePage;
 
     @BeforeEach
     void setUp() {
@@ -34,7 +33,7 @@ public class ListagemPacienteTest {
         driver = new ChromeDriver(options);
         driver.get(url);
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        page = new ListaPacientes(driver);
+        listaPacientePage = new ListaPacientes(driver); 
     }
 
     @AfterEach
@@ -44,12 +43,12 @@ public class ListagemPacienteTest {
 
     @Nested
     @DisplayName("Header buttons")
-    class Header{
+    class Header {
         @Test
         @DisplayName("Should click on 'Página de Médicos' button and navigate to the médicos page")
         void ShouldClickOnPageDeMedicosButtonAndNavigateToTheMedicosPage() {
             String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/medicos.html";
-            page.clickMedicoPageBtn();
+            listaPacientePage.clickMedicoPageBtn();
 
             assertEquals(expectedPage, driver.getCurrentUrl());
         }
@@ -58,7 +57,7 @@ public class ListagemPacienteTest {
         @DisplayName("Should click on 'Página de Pacientes' button and navigate to the pacientes page")
         void ShouldClickOnPaginaDePacientesButtonAndNavigateToThePacientesPage() {
             String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
-            page.clickPacientePageBtn();
+            listaPacientePage.clickPacientePageBtn();
 
             assertEquals(expectedPage, driver.getCurrentUrl());
         }
@@ -67,7 +66,7 @@ public class ListagemPacienteTest {
         @DisplayName("Should click on 'Sair' button and navigate to the index page")
         void ShouldClickOnSairButtonAndNavigateToTheIndexPage() {
             String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/index.html";
-            page.clickSairBtn();
+            listaPacientePage.clickSairBtn();
 
             assertEquals(expectedPage, driver.getCurrentUrl());
         }
@@ -75,11 +74,11 @@ public class ListagemPacienteTest {
 
     @Nested
     @DisplayName("When empty CPF")
-    class EmptyCPF{
+    class EmptyCPF {
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking listbtn")
         void shouldDisplayAlertOnEmptyCpfAfterClickingListButton() {
-            page.clickListBtn();
+            listaPacientePage.clickListBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Digite o CPF", alertText);
@@ -88,7 +87,7 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking alterarbtn")
         void shouldDisplayAlertOnEmptyCpfAfterClickingAlterarButton() {
-            page.clickEditBtn();
+            listaPacientePage.clickEditBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Digite o CPF", alertText);
@@ -97,7 +96,7 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking excluirbtn")
         void shouldDisplayAlertOnEmptyCpfAfterClickingExcluirButton() {
-            page.clickDeleteBtn();
+            listaPacientePage.clickDeleteBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Digite o CPF", alertText);
@@ -106,12 +105,12 @@ public class ListagemPacienteTest {
     
     @Nested
     @DisplayName("When wrong CPF")
-    class CPFNaoEncontrado{
+    class WrongCPF {
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking list button with wrong CPF")
         public void shouldDisplayAlertOnWrongCpfAfterClickingListButtonWithWrongCPF() {
-            page.setCPF("123.456.789-09");
-            page.clickListBtn();
+            listaPacientePage.setCPF("123.456.789-09");
+            listaPacientePage.clickListBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Cadastro não encontrado.", alertText);
@@ -120,8 +119,8 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking edit button with wrong CPF")
         public void shouldDisplayAlertOnWrongCpfAfterClickingEditButtonWithWrongCPF() {
-            page.setCPF("123.456.789-09");
-            page.clickEditBtn();
+            listaPacientePage.setCPF("123.456.789-09");
+            listaPacientePage.clickEditBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Cadastro não encontrado.", alertText);
@@ -130,11 +129,20 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking delete button with wrong CPF")
         public void shouldDisplayAlertOnWrongCpfAfterClickingDeleteButtonWithWrongCPF() {
-            page.setCPF("123.456.789-09");
-            page.clickDeleteBtn();
+            listaPacientePage.setCPF("123.456.789-09");
+            listaPacientePage.clickDeleteBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Cadastro não encontrado.", alertText);
         }
 }
+
+    @Nested
+    @DisplayName("List pacientes")
+    class ListPacientes {
+        @Test
+        public void lista(){
+            listaPacientePage.clickListAllBtn();
+        }
+    }
 }

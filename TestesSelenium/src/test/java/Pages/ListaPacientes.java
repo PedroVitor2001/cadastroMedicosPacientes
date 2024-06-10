@@ -20,7 +20,7 @@ public class ListaPacientes {
         this.sairBtn = driver.findElement(By.className("sair"));
 
         this.CPFField = driver.findElement(By.id("icpf"));
-        this.listBtn = driver.findElement(By.xpath("//button[@onClick='mostrar()']"));
+        this.listAllBtn = driver.findElement(By.xpath("//button[@onClick='mostrar()']"));
         this.listBtn = driver.findElement(By.xpath("//button[@onClick='ListarUm()']"));
         this.editBtn = driver.findElement(By.xpath("//button[@onClick='Alterar()']"));
         this.deleteBtn = driver.findElement(By.xpath("//button[@onClick='Excluir()']"));
