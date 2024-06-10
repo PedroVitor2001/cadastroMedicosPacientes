@@ -1,5 +1,7 @@
 package Pages;
 
+import java.util.List;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -12,18 +14,20 @@ public class ListaPacientes {
     private WebElement listBtn;
     private WebElement editBtn;
     private WebElement deleteBtn;
-    private WebElement CPFField;
+    private WebElement cpfField;
+    private List<WebElement> patientRows;
 
     public ListaPacientes(WebDriver driver){
         this.pacientePageBtn = driver.findElement(By.className("pagina-pacientes"));
         this.medicoPageBtn = driver.findElement(By.className("pagina-medicos"));
         this.sairBtn = driver.findElement(By.className("sair"));
 
-        this.CPFField = driver.findElement(By.id("icpf"));
+        this.cpfField = driver.findElement(By.id("icpf"));
         this.listAllBtn = driver.findElement(By.xpath("//button[@onClick='mostrar()']"));
         this.listBtn = driver.findElement(By.xpath("//button[@onClick='ListarUm()']"));
         this.editBtn = driver.findElement(By.xpath("//button[@onClick='Alterar()']"));
         this.deleteBtn = driver.findElement(By.xpath("//button[@onClick='Excluir()']"));
+        this.patientRows = driver.findElements(By.xpath("//*[@id=\"pacientesTable\"]/tbody/tr"));
     }    
 
     public void clickPacientePageBtn() {
@@ -39,7 +43,7 @@ public class ListaPacientes {
     }
 
     public void setCPF(String cpf) {
-        CPFField.sendKeys(cpf);
+        cpfField.sendKeys(cpf);
     }
 
     public void clickListAllBtn() {
@@ -56,5 +60,9 @@ public class ListaPacientes {
 
     public void clickDeleteBtn() {
         deleteBtn.click();
+    }
+
+    public List<WebElement> getPatientRows() {
+        return patientRows;
     }
 }
