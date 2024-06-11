@@ -99,4 +99,16 @@ public class CadastroPacientesPage {
         cadastrar();
         wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
+
+    public void criarPacienteValido(String CPF) {
+        setCPF(CPF);
+        setNome(PatientFakerUtil.getNome());
+        setSexo(PatientFakerUtil.getSexo());
+        setPlano(PatientFakerUtil.getPlano());
+        setData(PatientFakerUtil.getDataNascimento());
+        setEmail(PatientFakerUtil.getEmail());
+        setTelefone(PatientFakerUtil.getTelefone());
+        cadastrar();
+        wait.until(ExpectedConditions.alertIsPresent()).accept();
+    }
 }
