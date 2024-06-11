@@ -51,8 +51,28 @@ public class CadastroPacientes {
         this.listarPacientesbtn = driver.findElement(By.cssSelector(".cadastro-sec .collum-2 .campos a"));
     }
 
+    public void goToMedicPage() {
+        medicPagebtn.click();
+    }
+
+    public void goToPatientPage() {
+        patientPagebtn.click();
+    }
+
+    public void goToHomePage() {
+        homePagebtn.click();
+    }
+
+    public void goToPatientsPage() {
+        listarPacientesbtn.click();
+    }
+
     public void cadastrar() {
         cadastrarbtn.click();
+    }
+
+    public void editar() {
+        editarbtn.click();
     }
 
     public void setCPF(String CPF) {
