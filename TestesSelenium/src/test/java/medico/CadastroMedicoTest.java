@@ -2,10 +2,7 @@ package medico;
 import Pages.CadastroMedicos;
 import Pages.PaginaInicial;
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -43,170 +40,183 @@ public class CadastroMedicoTest {
     {
         driver.quit();
     }
-    @Test
-    @DisplayName("Should open and close the website")
-    void shouldOpenAndCloseTheWebsite(){
-        driver.get(url);
-    }
 
-    @Test
-    @DisplayName("Should click on the doctor's button and go to another page")
-    void shouldClickOnTheDoctorsButtonAndGoToAnotherPage()
+
+    @Nested
+    @DisplayName("Tests for page navigation")
+    class home
     {
-        driver.get(url);
-        paginaInicial.clickButtonMedic();
+        @Test
+        @DisplayName("Should open and close the website")
+        void shouldOpenAndCloseTheWebsite(){
+            driver.get(url);
+        }
+
+        @Test
+        @DisplayName("Should click on the doctor's button and go to another page")
+        void shouldClickOnTheDoctorsButtonAndGoToAnotherPage()
+        {
+            driver.get(url);
+            paginaInicial.clickButtonMedic();
+        }
+
+        @Test
+        @DisplayName("Should click on the patient page button and redirect to the other page")
+        void shouldClickOnThePatientePageButtonAndRedirectToTheOtherPage()
+        {
+            driver.get(url);
+            paginaInicial.clickPatientPage();
+        }
     }
 
-    @Test
-    @DisplayName("Should click on the patient page button and redirect to the other page")
-    void shouldClickOnThePatientePageButtonAndRedirectToTheOtherPage()
+    @Nested
+    @DisplayName("Tests for doctor form validation")
+    class formDoctor
     {
-        driver.get(url);
-        paginaInicial.clickPatientPage();
+        @Test
+        @DisplayName("Should navigate to the doctor registration page, click on register and an alert should appear with a message")
+        void shouldNavigateToTheDoctorRegistrationPageClickOnRegisterAndAnAlertShouldAppearWithAMessage()
+        {
+            driver.get(url);
+            paginaInicial.clickButtonMedic();
+            cadastroMedicos.clickRegisterDoctor();
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Todos os campos são obrigatórios.", alertMessage);
+            alert.accept();
+        }
+
+
+        @Test
+        @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
+        void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage(){
+            driver.get(url);
+            paginaInicial.clickButtonMedic();
+
+            cadastroMedicos.fillAllFields(
+                    MedicFakerUtil.getWrongRandomCRM(),
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+            cadastroMedicos.clickRegisterDoctor();
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+
+            assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
+
+            alert.accept();
+        }
+
+        @Test
+        @DisplayName("Should show an error in the message if it is not a correct phone number")
+        void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber(){
+            driver.get(url);
+            paginaInicial.clickButtonMedic();
+
+            cadastroMedicos.fillAllFields(
+                    MedicFakerUtil.getRandomCRM(),
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getEmail(),
+                    MedicFakerUtil.getWrongTelefone()
+            );
+            cadastroMedicos.clickRegisterDoctor();
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Telefone inválido. Deve estar no formato XXXXXXXX", alertMessage);
+            alert.accept();
+        }
+
+        @Test
+        @DisplayName("Should fill in a wrong email and show an error alert")
+        void shouldFillInAWrongEmailAndShowAnErrorAlert()
+        {
+            driver.get(url);
+
+            paginaInicial.clickButtonMedic();
+
+
+            cadastroMedicos.fillAllFields(
+                    MedicFakerUtil.getRandomCRM(),
+                    MedicFakerUtil.getNome(),
+                    MedicFakerUtil.getDataNascimento(),
+                    MedicFakerUtil.getSexo(),
+                    MedicFakerUtil.getEspecialidade(),
+                    MedicFakerUtil.getUniversidade(),
+                    MedicFakerUtil.getWrongEmail(),
+                    MedicFakerUtil.getTelefone()
+            );
+
+            cadastroMedicos.clickRegisterDoctor();
+
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+
+            assertEquals("Email inválido.", alertMessage);
+
+            alert.accept();
+        }
+
+        @Test
+        @DisplayName("Should register a doctor, show an alert, and attempt to register the same doctor again with the correct message")
+        void shouldRegisterDoctorAndAttemptToRegisterAgain() {
+            driver.get(url);
+
+            paginaInicial.clickButtonMedic();
+
+            String crm = MedicFakerUtil.getRandomCRM();
+            String nome = MedicFakerUtil.getNome();
+            String dataNascimento = MedicFakerUtil.getDataNascimento();
+            String sexo = MedicFakerUtil.getSexo();
+            String especialidade = MedicFakerUtil.getEspecialidade();
+            String universidade = MedicFakerUtil.getUniversidade();
+            String email = MedicFakerUtil.getEmail();
+            String telefone = MedicFakerUtil.getTelefone();
+
+            cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+            cadastroMedicos.clickRegisterDoctor();
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("Cadastrado efetuado com sucesso", alertMessage);
+            alert.accept();
+            cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
+            cadastroMedicos.clickRegisterDoctor();
+            webDriverWait.until(ExpectedConditions.alertIsPresent());
+            alert = driver.switchTo().alert();
+            alertMessage = alert.getText();
+            assertEquals("CRM já cadastrado.", alertMessage);
+            alert.accept();
+        }
     }
 
-    @Test
-    @DisplayName("Should navigate to the doctor registration page, click on register and an alert should appear with a message")
-    void shouldNavigateToTheDoctorRegistrationPageClickOnRegisterAndAnAlertShouldAppearWithAMessage()
+    @Nested
+    @DisplayName("Go to another page")
+    class anotherPage
     {
-        driver.get(url);
-        paginaInicial.clickButtonMedic();
-        cadastroMedicos.clickRegisterDoctor();
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-        alert = driver.switchTo().alert();
-        alertMessage = alert.getText();
-        assertEquals("Todos os campos são obrigatórios.", alertMessage);
-        alert.accept();
+        @Test
+        @DisplayName("Should click and go to the other doctor listing page")
+        void shouldClickAndGoToTheOtherDoctorListingPage()
+        {
+            driver.get(url);
+            paginaInicial.clickButtonMedic();
+            cadastroMedicos.clickDoctorsList();
+        }
     }
-
-
-    @Test
-    @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
-    void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage(){
-        driver.get(url);
-        paginaInicial.clickButtonMedic();
-
-        cadastroMedicos.fillAllFields(
-                MedicFakerUtil.getWrongRandomCRM(),
-                MedicFakerUtil.getNome(),
-                MedicFakerUtil.getDataNascimento(),
-                MedicFakerUtil.getSexo(),
-                MedicFakerUtil.getEspecialidade(),
-                MedicFakerUtil.getUniversidade(),
-                MedicFakerUtil.getEmail(),
-                MedicFakerUtil.getTelefone()
-        );
-        cadastroMedicos.clickRegisterDoctor();
-
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-
-        alert = driver.switchTo().alert();
-        alertMessage = alert.getText();
-
-        assertEquals("O CRM deve estar no formato 0000000/UF.", alertMessage);
-
-        alert.accept();
-    }
-
-    @Test
-    @DisplayName("Should show an error in the message if it is not a correct phone number")
-    void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber(){
-        driver.get(url);
-        paginaInicial.clickButtonMedic();
-
-        cadastroMedicos.fillAllFields(
-                MedicFakerUtil.getRandomCRM(),
-                MedicFakerUtil.getNome(),
-                MedicFakerUtil.getDataNascimento(),
-                MedicFakerUtil.getSexo(),
-                MedicFakerUtil.getEspecialidade(),
-                MedicFakerUtil.getUniversidade(),
-                MedicFakerUtil.getEmail(),
-                MedicFakerUtil.getWrongTelefone()
-        );
-        cadastroMedicos.clickRegisterDoctor();
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-        alert = driver.switchTo().alert();
-        alertMessage = alert.getText();
-        assertEquals("Telefone inválido. Deve estar no formato XXXXXXXX", alertMessage);
-        alert.accept();
-    }
-
-    @Test
-    @DisplayName("Should fill in a wrong email and show an error alert")
-
-    void shouldFillInAWrongEmailAndShowAnErrorAlert()
-    {
-        driver.get(url);
-
-        paginaInicial.clickButtonMedic();
-
-
-        cadastroMedicos.fillAllFields(
-                MedicFakerUtil.getRandomCRM(),
-                MedicFakerUtil.getNome(),
-                MedicFakerUtil.getDataNascimento(),
-                MedicFakerUtil.getSexo(),
-                MedicFakerUtil.getEspecialidade(),
-                MedicFakerUtil.getUniversidade(),
-                MedicFakerUtil.getWrongEmail(),
-                MedicFakerUtil.getTelefone()
-        );
-
-        cadastroMedicos.clickRegisterDoctor();
-
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-
-        alert = driver.switchTo().alert();
-        alertMessage = alert.getText();
-
-        assertEquals("Email inválido.", alertMessage);
-
-        alert.accept();
-    }
-
-    @Test
-    @DisplayName("Should register a doctor, show an alert, and attempt to register the same doctor again with the correct message")
-    void shouldRegisterDoctorAndAttemptToRegisterAgain() {
-        driver.get(url);
-
-        paginaInicial.clickButtonMedic();
-
-        String crm = MedicFakerUtil.getRandomCRM();
-        String nome = MedicFakerUtil.getNome();
-        String dataNascimento = MedicFakerUtil.getDataNascimento();
-        String sexo = MedicFakerUtil.getSexo();
-        String especialidade = MedicFakerUtil.getEspecialidade();
-        String universidade = MedicFakerUtil.getUniversidade();
-        String email = MedicFakerUtil.getEmail();
-        String telefone = MedicFakerUtil.getTelefone();
-
-        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
-        cadastroMedicos.clickRegisterDoctor();
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-        alert = driver.switchTo().alert();
-        alertMessage = alert.getText();
-        assertEquals("Cadastrado efetuado com sucesso", alertMessage);
-        alert.accept();
-        cadastroMedicos.fillAllFields(crm, nome, dataNascimento, sexo, especialidade, universidade, email, telefone);
-        cadastroMedicos.clickRegisterDoctor();
-        webDriverWait.until(ExpectedConditions.alertIsPresent());
-        alert = driver.switchTo().alert();
-        alertMessage = alert.getText();
-        assertEquals("CRM já cadastrado.", alertMessage);
-        alert.accept();
-    }
-
-
-    @Test
-    @DisplayName("Should click and go to the other doctor listing page")
-    void shouldClickAndGoToTheOtherDoctorListingPage()
-    {
-        driver.get(url);
-        paginaInicial.clickButtonMedic();
-        cadastroMedicos.clickDoctorsList();
-    }
-
-
 
 }
