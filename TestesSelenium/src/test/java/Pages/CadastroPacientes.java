@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Faker.PatientFakerUtil;
 
-public class CadastroPacientesPage {
+public class CadastroPacientes {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -30,7 +30,7 @@ public class CadastroPacientesPage {
 
     private WebElement listarPacientesbtn;
 
-    public CadastroPacientesPage(WebDriver driver) {
+    public CadastroPacientes(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 

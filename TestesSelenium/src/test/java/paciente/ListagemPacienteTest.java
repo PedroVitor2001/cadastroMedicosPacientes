@@ -19,7 +19,7 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Faker.PatientFakerUtil;
-import Pages.CadastroPacientesPage;
+import Pages.CadastroPacientes;
 import Pages.ListaPacientes;
 import Pages.PaginaInicial;
 import io.github.bonigarcia.wdm.WebDriverManager;
@@ -30,7 +30,7 @@ public class ListagemPacienteTest {
     private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
     private ListaPacientes listaPacientePage;
     private PaginaInicial paginaInicial;
-    private CadastroPacientesPage cadastroPacientesPage;
+    private CadastroPacientes cadastroPacientesPage;
 
     @BeforeEach
     void setUp() {
@@ -45,7 +45,7 @@ public class ListagemPacienteTest {
 
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         listaPacientePage = new ListaPacientes(driver); 
-        cadastroPacientesPage = new CadastroPacientesPage(driver);
+        cadastroPacientesPage = new CadastroPacientes(driver);
     }
 
     @AfterEach
