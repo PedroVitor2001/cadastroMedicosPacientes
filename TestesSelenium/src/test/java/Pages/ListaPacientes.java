@@ -23,7 +23,7 @@ public class ListaPacientes {
     private By editBtn = By.xpath("//button[@class='botao' and @onclick='Alterar()']");
     private By deleteBtn = By.xpath("//button[@class='botao' and @onclick='Excluir()']");
 
-    private By patientRows = By.xpath("//*[@id=\"medicosTable\"]/tbody/tr");
+    private By patientRows = By.xpath("//*[@id=\"pacientesTable\"]/tbody/tr");
 
     public ListaPacientes(WebDriver driver){
         this.driver = driver;
