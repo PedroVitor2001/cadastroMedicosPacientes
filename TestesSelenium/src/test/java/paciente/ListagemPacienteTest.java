@@ -152,9 +152,10 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should list one patients")
         public void shouldListAPatient(){
-            //cadastrar um paciente com cpf pra ser checado
+            cadastroPacientesPage.criarPacienteValido("123.456.789-01");
 
-            listaPacientePage.setCPF("cpfchecado");
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickListBtn();
             List<WebElement> patientRows = listaPacientePage.getPatientRows();
 
@@ -168,7 +169,7 @@ public class ListagemPacienteTest {
             cadastroPacientesPage.criarPacienteValido();
             cadastroPacientesPage.criarPacienteValido();
 
-            cadastroPacientesPage.clickListarPacientesbtn();
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickListAllBtn();
             List<WebElement> patientRows = listaPacientePage.getPatientRows();
 
@@ -182,10 +183,12 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'Cadastro atualizado com sucesso' after saving changes in edit patient")
         void shouldDisplaySucessAlertAfterSavingChangesInEditPatient() {
-            //cadastra paciente
+            cadastroPacientesPage.criarPacienteValido("123.456.789-01");
 
-            listaPacientePage.setCPF("cpf");
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickEditBtn();
+            cadastroPacientesPage.clickEditarBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
             assertEquals("Cadastro atualizado com sucesso", alertText);
@@ -194,7 +197,7 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("should Check if changes were made once patient is sucessfully edited")
         void shouldCheckIfChangesWereMadeOncePatientIsSucessfullyEdited() {
-            //cadastra paciente
+            cadastroPacientesPage.criarPacienteValido();
 
             listaPacientePage.setCPF("cpf");
             listaPacientePage.clickEditBtn();
@@ -209,8 +212,10 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("should Check if patient got deleted")
         void shouldCheckIfPatientGotDeleted() {
-            //cadastra paciente
+            cadastroPacientesPage.criarPacienteValido("123.456.789-01");
 
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF("123.456.789.01");
             listaPacientePage.clickDeleteBtn();
             List<WebElement> patientRows = listaPacientePage.getPatientRows();
 
