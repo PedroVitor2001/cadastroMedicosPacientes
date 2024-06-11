@@ -1,11 +1,18 @@
 package Pages;
 
+import java.time.Duration;
+
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+
+import Faker.PatientFakerUtil;
 
 public class CadastroPacientesPage {
     private WebDriver driver;
+    private WebDriverWait wait;
 
     private WebElement medicPagebtn;
     private WebElement patientPagebtn;
@@ -25,6 +32,8 @@ public class CadastroPacientesPage {
 
     public CadastroPacientesPage(WebDriver driver) {
         this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+
 
         this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[1]"));
         this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[2]"));
@@ -73,5 +82,21 @@ public class CadastroPacientesPage {
 
     public void setTelefone(String telefone) {
         telefoneField.sendKeys(telefone);
+    }
+
+    public void clickListarPacientesbtn() {
+        wait.until(ExpectedConditions.elementToBeClickable(listarPacientesbtn)).click();
+    }
+
+    public void criarPacienteValido() {
+        setCPF(PatientFakerUtil.getRandomCPF());
+        setNome(PatientFakerUtil.getNome());
+        setSexo(PatientFakerUtil.getSexo());
+        setPlano(PatientFakerUtil.getPlano());
+        setData(PatientFakerUtil.getDataNascimento());
+        setEmail(PatientFakerUtil.getEmail());
+        setTelefone(PatientFakerUtil.getTelefone());
+        cadastrar();
+        wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
 }
