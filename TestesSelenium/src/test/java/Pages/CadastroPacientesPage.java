@@ -89,7 +89,8 @@ public class CadastroPacientesPage {
     }
 
     public void clickEditarBtn() {
-        wait.until(ExpectedConditions.elementToBeClickable(editarbtn)).click();
+        WebElement editButton = wait.until(ExpectedConditions.elementToBeClickable(By.id("AlterarPaciente")));
+        editButton.click();
     }
 
     public void criarPacienteValido() {
