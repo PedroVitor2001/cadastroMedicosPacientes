@@ -18,6 +18,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Faker.PatientFakerUtil;
 import Pages.CadastroPacientesPage;
 import Pages.ListaPacientes;
 import Pages.PaginaInicial;
@@ -26,7 +27,7 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 public class ListagemPacienteTest {
     private WebDriver driver;
     private WebDriverWait webDriverWait;
-    private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
+    private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/";
     private ListaPacientes listaPacientePage;
     private PaginaInicial paginaInicial;
     private CadastroPacientesPage cadastroPacientesPage;
@@ -39,9 +40,11 @@ public class ListagemPacienteTest {
     
         driver = new ChromeDriver(options);
         driver.get(url);
+        paginaInicial = new PaginaInicial(driver);
+        paginaInicial.clickPatientPage();
+
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         listaPacientePage = new ListaPacientes(driver); 
-        paginaInicial = new PaginaInicial(driver);
         cadastroPacientesPage = new CadastroPacientesPage(driver);
     }
 
@@ -57,6 +60,7 @@ public class ListagemPacienteTest {
         @DisplayName("Should click on 'Página de Médicos' button and navigate to the médicos page")
         void ShouldClickOnPageDeMedicosButtonAndNavigateToTheMedicosPage() {
             String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/medicos.html";
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickMedicoPageBtn();
 
             assertEquals(expectedPage, driver.getCurrentUrl());
@@ -66,6 +70,7 @@ public class ListagemPacienteTest {
         @DisplayName("Should click on 'Página de Pacientes' button and navigate to the pacientes page")
         void ShouldClickOnPaginaDePacientesButtonAndNavigateToThePacientesPage() {
             String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickPacientePageBtn();
 
             assertEquals(expectedPage, driver.getCurrentUrl());
@@ -75,6 +80,7 @@ public class ListagemPacienteTest {
         @DisplayName("Should click on 'Sair' button and navigate to the index page")
         void ShouldClickOnSairButtonAndNavigateToTheIndexPage() {
             String expectedPage = "https://cadastro-medicos-pacientes-a4n9.vercel.app/index.html";
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickSairBtn();
 
             assertEquals(expectedPage, driver.getCurrentUrl());
@@ -87,6 +93,7 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking listbtn")
         void shouldDisplayAlertOnEmptyCpfAfterClickingListButton() {
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickListBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
@@ -96,6 +103,7 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking alterarbtn")
         void shouldDisplayAlertOnEmptyCpfAfterClickingAlterarButton() {
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickEditBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
@@ -105,6 +113,7 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'digite o cpf' after clicking excluirbtn")
         void shouldDisplayAlertOnEmptyCpfAfterClickingExcluirButton() {
+            cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.clickDeleteBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
@@ -118,7 +127,8 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking list button with wrong CPF")
         public void shouldDisplayAlertOnWrongCpfAfterClickingListButtonWithWrongCPF() {
-            listaPacientePage.setCPF("123.456.789-09");
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF(PatientFakerUtil.getRandomCPF());
             listaPacientePage.clickListBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
@@ -128,7 +138,8 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking edit button with wrong CPF")
         public void shouldDisplayAlertOnWrongCpfAfterClickingEditButtonWithWrongCPF() {
-            listaPacientePage.setCPF("123.456.789-09");
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF(PatientFakerUtil.getRandomCPF());
             listaPacientePage.clickEditBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
@@ -138,7 +149,8 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should display alert 'Cadastro não encontrado' after clicking delete button with wrong CPF")
         public void shouldDisplayAlertOnWrongCpfAfterClickingDeleteButtonWithWrongCPF() {
-            listaPacientePage.setCPF("123.456.789-09");
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF(PatientFakerUtil.getRandomCPF());
             listaPacientePage.clickDeleteBtn();
 
             String alertText = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
@@ -197,12 +209,19 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("should Check if changes were made once patient is sucessfully edited")
         void shouldCheckIfChangesWereMadeOncePatientIsSucessfullyEdited() {
-            cadastroPacientesPage.criarPacienteValido();
+            cadastroPacientesPage.criarPacienteValido("123.456.789-01");
 
-            listaPacientePage.setCPF("cpf");
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickEditBtn();
+            cadastroPacientesPage.setNome("nome alterado"); // should work with webdriverwait in this function
+            cadastroPacientesPage.clickEditarBtn();
+            cadastroPacientesPage.clickListarPacientesBtn();
+            listaPacientePage.setCPF("123.456.789-01");
+            listaPacientePage.clickListBtn();
+            List<WebElement> patientRows = listaPacientePage.getPatientRows();
 
-            //checar se o campo mudo
+            assertEquals(1, patientRows.size(), "The number of registered patients should be 1.");
         }
     }
 
@@ -215,7 +234,7 @@ public class ListagemPacienteTest {
             cadastroPacientesPage.criarPacienteValido("123.456.789-01");
 
             cadastroPacientesPage.clickListarPacientesBtn();
-            listaPacientePage.setCPF("123.456.789.01");
+            listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickDeleteBtn();
             List<WebElement> patientRows = listaPacientePage.getPatientRows();
 
