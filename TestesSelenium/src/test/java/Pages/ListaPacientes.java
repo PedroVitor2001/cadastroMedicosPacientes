@@ -1,5 +1,6 @@
 package Pages;
 
+import java.time.Duration;
 import java.util.List;
 
 import org.openqa.selenium.By;
@@ -10,29 +11,23 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class ListaPacientes {
     private WebDriver driver;
-    private WebElement medicoPageBtn;
-    private WebElement pacientePageBtn;
-    private WebElement sairBtn;
-    private WebElement listAllBtn;
-    private WebElement listBtn;
-    private WebElement editBtn;
-    private WebElement deleteBtn;
-    private WebElement cpfField;
     private WebDriverWait wait;
-    private List<WebElement> patientRows;
+
+    private By pacientePageBtn = By.xpath("//nav[@class='navegacao']/a[@class='pagina-pacientes' and @href='pacientes.html']");
+    private By medicoPageBtn  = By.xpath("//nav[@class='navegacao']/a[@class='pagina-medicos' and @href='medicos.html']");
+    private By sairBtn = By.xpath("//nav[@class='navegacao']/a[@class='sair' and @href='../index.html']");
+
+    private By cpfField = By.xpath("//input[@id='icpf' and @type='text']");
+    private By listAllBtn = By.xpath("//button[@class='botao' and @onclick='mostrar()']");
+    private By listBtn = By.xpath("//button[@class='botao' and @onclick='ListarUm()']");
+    private By editBtn = By.xpath("//button[@class='botao' and @onclick='Alterar()']");
+    private By deleteBtn = By.xpath("//button[@class='botao' and @onclick='Excluir()']");
+
+    private By patientRows = By.xpath("//*[@id=\"medicosTable\"]/tbody/tr");
 
     public ListaPacientes(WebDriver driver){
-        this.pacientePageBtn = driver.findElement(By.className("pagina-pacientes"));
-        this.medicoPageBtn = driver.findElement(By.className("pagina-medicos"));
-        this.sairBtn = driver.findElement(By.className("sair"));
-
-        this.cpfField = driver.findElement(By.id("icpf"));
-        this.listAllBtn = driver.findElement(By.xpath("//button[@onClick='mostrar()']"));
-        this.listBtn = driver.findElement(By.xpath("//button[@onClick='ListarUm()']"));
-        this.editBtn = driver.findElement(By.xpath("//button[@onClick='Alterar()']"));
-        this.deleteBtn = driver.findElement(By.xpath("//button[@onClick='Excluir()']"));
-
-        this.patientRows = driver.findElements(By.xpath("//*[@id=\"pacientesTable\"]/tbody/tr"));
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }    
 
     public void clickPacientePageBtn() {
@@ -49,7 +44,7 @@ public class ListaPacientes {
     }
 
     public void setCPF(String cpf) {
-        cpfField.sendKeys(cpf);
+        driver.findElement(cpfField).sendKeys(cpf);
     }
 
     public void clickListAllBtn() {
@@ -69,6 +64,7 @@ public class ListaPacientes {
     }
 
     public List<WebElement> getPatientRows() {
-        return patientRows;
+        return driver.findElements(patientRows);
     }
 }
+
