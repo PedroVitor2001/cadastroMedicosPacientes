@@ -84,8 +84,12 @@ public class CadastroPacientesPage {
         telefoneField.sendKeys(telefone);
     }
 
-    public void clickListarPacientesbtn() {
+    public void clickListarPacientesBtn() {
         wait.until(ExpectedConditions.elementToBeClickable(listarPacientesbtn)).click();
+    }
+
+    public void clickEditarBtn() {
+        wait.until(ExpectedConditions.elementToBeClickable(editarbtn)).click();
     }
 
     public void criarPacienteValido() {
