@@ -10,7 +10,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import Faker.PatientFakerUtil;
 
-public class CadastroPacientesPage {
+public class CadastroPacientes {
     private WebDriver driver;
     private WebDriverWait wait;
 
@@ -30,14 +30,13 @@ public class CadastroPacientesPage {
 
     private WebElement listarPacientesbtn;
 
-    public CadastroPacientesPage(WebDriver driver) {
+    public CadastroPacientes(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
-
         this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[1]"));
-        this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[2]"));
-        this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[3]"));
+        this.patientPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[2]"));
+        this.homePagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[3]"));
 
         this.CPFField = driver.findElement(By.id("cpf"));
         this.nomeField = driver.findElement(By.id("nome"));
@@ -52,8 +51,28 @@ public class CadastroPacientesPage {
         this.listarPacientesbtn = driver.findElement(By.cssSelector(".cadastro-sec .collum-2 .campos a"));
     }
 
+    public void goToMedicPage() {
+        medicPagebtn.click();
+    }
+
+    public void goToPatientPage() {
+        patientPagebtn.click();
+    }
+
+    public void goToHomePage() {
+        homePagebtn.click();
+    }
+
+    public void goToPatientsPage() {
+        listarPacientesbtn.click();
+    }
+
     public void cadastrar() {
         cadastrarbtn.click();
+    }
+
+    public void editar() {
+        editarbtn.click();
     }
 
     public void setCPF(String CPF) {

@@ -14,13 +14,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import Pages.CadastroPacientesPage;
+import Pages.CadastroPacientes;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CadastroPacienteTest {
     private WebDriver driver;
     private String BASE_URL = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
-    private CadastroPacientesPage page;
+    private CadastroPacientes page;
 
     @BeforeEach
     void setUp() {
@@ -31,7 +31,7 @@ public class CadastroPacienteTest {
 
         driver = new ChromeDriver(options);
         driver.get(BASE_URL);
-        page = new CadastroPacientesPage(driver);
+        page = new CadastroPacientes(driver);
     }
 
     @AfterEach
