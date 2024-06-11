@@ -236,9 +236,17 @@ public class ListagemPacienteTest {
             cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickDeleteBtn();
-            List<WebElement> patientRows = listaPacientePage.getPatientRows();
+            //objeto excluido com sucesso
+            webDriverWait.until(ExpectedConditions.alertIsPresent()).accept();
+            //nenhum objeto encontrado
+            webDriverWait.until(ExpectedConditions.alertIsPresent()).accept();
 
-            assertEquals(0, patientRows.size(), "The number of registered patients should be 0.");
+
+            listaPacientePage.setCPF("123.456.789-01");
+            listaPacientePage.clickListBtn();
+            String alertMessage = webDriverWait.until(ExpectedConditions.alertIsPresent()).getText();
+            
+            assertEquals("Cadastro não encontrado.", alertMessage);
         }
         
     }
