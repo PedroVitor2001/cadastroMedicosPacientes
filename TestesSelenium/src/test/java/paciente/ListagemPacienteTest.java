@@ -29,6 +29,7 @@ public class ListagemPacienteTest {
     private String url = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
     private ListaPacientes listaPacientePage;
     private PaginaInicial paginaInicial;
+    private CadastroPacientesPage cadastroPacientesPage;
 
     @BeforeEach
     void setUp() {
@@ -41,6 +42,7 @@ public class ListagemPacienteTest {
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         listaPacientePage = new ListaPacientes(driver); 
         paginaInicial = new PaginaInicial(driver);
+        cadastroPacientesPage = new CadastroPacientesPage(driver);
     }
 
     @AfterEach
@@ -162,8 +164,11 @@ public class ListagemPacienteTest {
         @Test
         @DisplayName("Should list all patients")
         public void shouldListAllPacients(){
-            //cadastrar multiplos pacientes 
+            cadastroPacientesPage.criarPacienteValido();
+            cadastroPacientesPage.criarPacienteValido();
+            cadastroPacientesPage.criarPacienteValido();
 
+            cadastroPacientesPage.clickListarPacientesbtn();
             listaPacientePage.clickListAllBtn();
             List<WebElement> patientRows = listaPacientePage.getPatientRows();
 
