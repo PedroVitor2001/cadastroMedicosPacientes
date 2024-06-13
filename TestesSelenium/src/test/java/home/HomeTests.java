@@ -60,4 +60,12 @@ public class HomeTests {
 
         assertThat(driver.getCurrentUrl()).isEqualTo(MEDIC_PAGE);
     }
+
+    @Test
+    @DisplayName("Should go to the patient page")
+    public void ShouldGoToThePatientPage() {
+        page.goToThePatientPage();
+
+        assertThat(driver.getCurrentUrl()).isEqualTo(PATIENT_PAGE);
+    }
 }
