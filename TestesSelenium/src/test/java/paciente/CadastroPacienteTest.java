@@ -114,4 +114,17 @@ public class CadastroPacienteTest {
 
         assertThat(alert.getText()).isEqualTo("Telefone inválido. Deve estar no formato XXXXXXXX");
     }
+
+    @Test
+    @DisplayName("Should register a new valid patient")
+    public void ShouldRegisterANewValidPatient() {
+        page.criarPaciente();
+
+        page.cadastrar();
+
+        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        assertThat(alert.getText()).isEqualTo("Cadastro efetuado com sucesso");
+    }
 }
