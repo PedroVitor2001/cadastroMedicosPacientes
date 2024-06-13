@@ -6,6 +6,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.WebDriver;
@@ -40,116 +41,119 @@ public class CadastroPacienteTest {
         driver.quit();
     }
 
-    @Test
-    @DisplayName("Should not register a new patient with empty fields")
-    public void shouldNotRegisterANewPatientWithEmptyFields() {
-        page.cadastrar();
+    @Nested
+    class CadastroTests {
+        @Test
+        @DisplayName("Should not register a new patient with empty fields")
+        public void shouldNotRegisterANewPatientWithEmptyFields() {
+            page.cadastrar();
 
-        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
-    }
+            assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
+        }
 
-    @Test
-    @DisplayName("Should not register a new patient with blank fields")
-    public void shouldNotRegisterANewPatientWithBlankFields() {
-        page.setCPF(" ");
-        page.setNome(" ");
-        page.setSexo(" ");
-        page.setPlano(" ");
-        page.setData(" ");
-        page.setEmail(" ");
-        page.setTelefone(" ");
+        @Test
+        @DisplayName("Should not register a new patient with blank fields")
+        public void shouldNotRegisterANewPatientWithBlankFields() {
+            page.setCPF(" ");
+            page.setNome(" ");
+            page.setSexo(" ");
+            page.setPlano(" ");
+            page.setData(" ");
+            page.setEmail(" ");
+            page.setTelefone(" ");
 
-        page.cadastrar();
+            page.cadastrar();
 
-        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
-    }
+            assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
+        }
 
-    @Test
-    @DisplayName("Should not register a patient with a invalid CPF")
-    public void shouldNotRegisterAPatientWithAInvalidCPF() {
-        page.criarPaciente();
+        @Test
+        @DisplayName("Should not register a patient with a invalid CPF")
+        public void shouldNotRegisterAPatientWithAInvalidCPF() {
+            page.criarPaciente();
 
-        page.setCPF(PatientFakerUtil.getWrongRandomCPF());
+            page.setCPF(PatientFakerUtil.getWrongRandomCPF());
 
-        page.cadastrar();
+            page.cadastrar();
 
-        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText()).isEqualTo("CPF inválido. Deve ser: XXX.XXX.XXX-XX");
-    }
+            assertThat(alert.getText()).isEqualTo("CPF inválido. Deve ser: XXX.XXX.XXX-XX");
+        }
 
-    @Test
-    @DisplayName("Should not register a patient with a invalid email")
-    public void shouldNotRegisterAPatientWithAInvalidEmail() {
-        page.criarPaciente();
+        @Test
+        @DisplayName("Should not register a patient with a invalid email")
+        public void shouldNotRegisterAPatientWithAInvalidEmail() {
+            page.criarPaciente();
 
-        page.setEmail(PatientFakerUtil.getWrongEmail());
+            page.setEmail(PatientFakerUtil.getWrongEmail());
 
-        page.cadastrar();
+            page.cadastrar();
 
-        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText()).isEqualTo("Email inválido.");
-    }
+            assertThat(alert.getText()).isEqualTo("Email inválido.");
+        }
 
-    @Test
-    @DisplayName("Should not register a patient with a invalid telefone")
-    public void shouldNotRegisterAPatientWithAInvalidTelefone() {
-        page.criarPaciente();
+        @Test
+        @DisplayName("Should not register a patient with a invalid telefone")
+        public void shouldNotRegisterAPatientWithAInvalidTelefone() {
+            page.criarPaciente();
 
-        page.setTelefone(PatientFakerUtil.getWrongTelefone());
+            page.setTelefone(PatientFakerUtil.getWrongTelefone());
 
-        page.cadastrar();
+            page.cadastrar();
 
-        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText()).isEqualTo("Telefone inválido. Deve estar no formato XXXXXXXX");
-    }
+            assertThat(alert.getText()).isEqualTo("Telefone inválido. Deve estar no formato XXXXXXXX");
+        }
 
-    @Test
-    @DisplayName("Should register a new valid patient")
-    public void ShouldRegisterANewValidPatient() {
-        page.criarPaciente();
+        @Test
+        @DisplayName("Should register a new valid patient")
+        public void ShouldRegisterANewValidPatient() {
+            page.criarPaciente();
 
-        page.cadastrar();
+            page.cadastrar();
 
-        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText()).isEqualTo("Cadastro efetuado com sucesso");
-    }
+            assertThat(alert.getText()).isEqualTo("Cadastro efetuado com sucesso");
+        }
 
-    @Test
-    @DisplayName("Should not register two or more patients with the same CPF")
-    public void ShouldNotRegisterTwoOrMorePatientsWithTheSameCPF() {
-        String CPF = PatientFakerUtil.getRandomCPF();
+        @Test
+        @DisplayName("Should not register two or more patients with the same CPF")
+        public void ShouldNotRegisterTwoOrMorePatientsWithTheSameCPF() {
+            String CPF = PatientFakerUtil.getRandomCPF();
 
-        page.criarPaciente(CPF);
+            page.criarPaciente(CPF);
 
-        page.cadastrar();
+            page.cadastrar();
 
-        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        alert.accept();
+            alert.accept();
 
-        page.criarPaciente(CPF);
+            page.criarPaciente(CPF);
 
-        page.cadastrar();
+            page.cadastrar();
 
-        alert = new WebDriverWait(driver, Duration.ofSeconds(10))
-            .until(ExpectedConditions.alertIsPresent());
+            alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent());
 
-        assertThat(alert.getText())
-            .isEqualTo("O cadastro deste CPF não foi possível, pois já está cadastrado.");
+            assertThat(alert.getText())
+                .isEqualTo("O cadastro deste CPF não foi possível, pois já está cadastrado.");
+        }
     }
 }
