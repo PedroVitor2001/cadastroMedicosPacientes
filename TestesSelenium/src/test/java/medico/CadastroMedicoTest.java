@@ -57,7 +57,7 @@ public class CadastroMedicoTest {
         void shouldClickOnTheDoctorsButtonAndGoToAnotherPage()
         {
             driver.get(url);
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
         }
 
         @Test
@@ -65,7 +65,7 @@ public class CadastroMedicoTest {
         void shouldClickOnThePatientePageButtonAndRedirectToTheOtherPage()
         {
             driver.get(url);
-            paginaInicial.clickPatientPage();
+            paginaInicial.goToThePatientPage();
         }
     }
 
@@ -78,7 +78,7 @@ public class CadastroMedicoTest {
         void shouldNavigateToTheDoctorRegistrationPageClickOnRegisterAndAnAlertShouldAppearWithAMessage()
         {
             driver.get(url);
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
             cadastroMedicos.clickRegisterDoctor();
             webDriverWait.until(ExpectedConditions.alertIsPresent());
             alert = driver.switchTo().alert();
@@ -92,7 +92,7 @@ public class CadastroMedicoTest {
         @DisplayName("Should navigate to the doctor registration page, fill the form, click on register and an alert should appear with a message")
         void shouldNavigateToTheDoctorRegistrationPageFillFormClickOnRegisterAndAnAlertShouldAppearWithAMessage(){
             driver.get(url);
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
 
             cadastroMedicos.fillAllFields(
                     MedicFakerUtil.getWrongRandomCRM(),
@@ -120,7 +120,7 @@ public class CadastroMedicoTest {
         @DisplayName("Should show an error in the message if it is not a correct phone number")
         void shouldShowAnErrorInTheMessageIfItIsNotACorrectPhoneNumber(){
             driver.get(url);
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
 
             cadastroMedicos.fillAllFields(
                     MedicFakerUtil.getRandomCRM(),
@@ -146,7 +146,7 @@ public class CadastroMedicoTest {
         {
             driver.get(url);
 
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
 
 
             cadastroMedicos.fillAllFields(
@@ -177,7 +177,7 @@ public class CadastroMedicoTest {
         void shouldRegisterDoctorAndAttemptToRegisterAgain() {
             driver.get(url);
 
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
 
             String crm = MedicFakerUtil.getRandomCRM();
             String nome = MedicFakerUtil.getNome();
@@ -214,7 +214,7 @@ public class CadastroMedicoTest {
         void shouldClickAndGoToTheOtherDoctorListingPage()
         {
             driver.get(url);
-            paginaInicial.clickButtonMedic();
+            paginaInicial.goToTheMedicPage();
             cadastroMedicos.clickDoctorsList();
         }
     }
