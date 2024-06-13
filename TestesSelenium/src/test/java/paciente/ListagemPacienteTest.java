@@ -41,7 +41,7 @@ public class ListagemPacienteTest {
         driver = new ChromeDriver(options);
         driver.get(url);
         paginaInicial = new PaginaInicial(driver);
-        paginaInicial.clickPatientPageWaited();
+        paginaInicial.goToPatientPageWaited();
 
         webDriverWait = new WebDriverWait(driver, Duration.ofSeconds(10));
         listaPacientePage = new ListaPacientes(driver); 
