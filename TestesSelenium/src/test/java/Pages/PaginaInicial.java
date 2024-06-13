@@ -15,15 +15,15 @@ public class PaginaInicial {
         this.buttonHome = driver.findElement(By.className("sair"));
     }
 
-    public void clickButtonMedic() {
+    public void goToTheMedicPage() {
         buttonMedic.click();
     }
 
-    public void clickPatientPage() {
+    public void goToThePatientPage() {
         buttonPatient.click();
     }
 
-    public void clickHomePage() {
+    public void goToTheHomePage() {
         buttonHome.click();
     }
 }
