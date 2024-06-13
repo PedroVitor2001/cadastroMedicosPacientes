@@ -84,4 +84,19 @@ public class CadastroPacienteTest {
 
         assertThat(alert.getText()).isEqualTo("CPF inválido. Deve ser: XXX.XXX.XXX-XX");
     }
+
+    @Test
+    @DisplayName("Should not register a patient with a invalid email")
+    public void shouldNotRegisterAPatientWithAInvalidEmail() {
+        page.criarPaciente();
+
+        page.setEmail(PatientFakerUtil.getWrongEmail());
+
+        page.cadastrar();
+
+        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        assertThat(alert.getText()).isEqualTo("Email inválido.");
+    }
 }
