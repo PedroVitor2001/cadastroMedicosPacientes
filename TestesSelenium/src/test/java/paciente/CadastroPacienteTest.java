@@ -179,7 +179,7 @@ public class CadastroPacienteTest {
 
             assertThat(driver.getCurrentUrl()).isEqualTo(HOME_PAGE);
         }
-        
+
         @Test
         @DisplayName("Should go to the medic page")
         public void ShouldGoToTheMedicPage() {
@@ -187,7 +187,7 @@ public class CadastroPacienteTest {
 
             assertThat(driver.getCurrentUrl()).isEqualTo(MEDIC_PAGE);
         }
-        
+
         @Test
         @DisplayName("Should go to the patient page")
         public void ShouldGoToThePatientPage() {
@@ -195,7 +195,7 @@ public class CadastroPacienteTest {
 
             assertThat(driver.getCurrentUrl()).isEqualTo(PATIENT_PAGE);
         }
-        
+
         @Test
         @DisplayName("Should go to the patient list page")
         public void ShouldGoToThePatientListPage() {
