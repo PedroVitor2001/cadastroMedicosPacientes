@@ -1,4 +1,5 @@
 package Faker;
+
 import com.github.javafaker.Faker;
 import java.util.Random;
 
@@ -7,9 +8,14 @@ public class PatientFakerUtil {
     private static Random random = new Random();
 
     public static String getRandomCPF() {
-        return String.format("%s.%s.%s-%s", faker.number().digits(3), faker.number().digits(3), 
-                faker.number().digits(3), faker.number().digits(2));
+        return String.format("%s.%s.%s-%s",
+            faker.number().digits(3),
+            faker.number().digits(3),
+            faker.number().digits(3),
+            faker.number().digits(2)
+        );
     }
+
     public static String getWrongRandomCPF() {
         return faker.number().digits(20);
     }
@@ -35,14 +41,14 @@ public class PatientFakerUtil {
     }
 
     public static String getWrongEmail() {
-
         String[] wrongEmailPatterns = {
-                getNome().replaceAll(" ", "").toLowerCase() + ".com",
-                getNome().replaceAll(" ", "").toLowerCase() + "@.com",
-                getNome().replaceAll(" ", "").toLowerCase()+ "@domain.",
-                getNome() .replaceAll(" ", "").toLowerCase()+"!@domain.com",
-                getNome() .replaceAll(" ", "").toLowerCase()+ "@domain"
+            getNome().replaceAll(" ", "").toLowerCase() + ".com",
+            getNome().replaceAll(" ", "").toLowerCase() + "@.com",
+            getNome().replaceAll(" ", "").toLowerCase() + "@domain.",
+            getNome().replaceAll(" ", "").toLowerCase() + "!@domain.com",
+            getNome().replaceAll(" ", "").toLowerCase() + "@domain"
         };
+
         return wrongEmailPatterns[random.nextInt(wrongEmailPatterns.length)];
     }
 
@@ -50,6 +56,7 @@ public class PatientFakerUtil {
         int primeiroNumero = random.nextInt(9) + 1;
         int segundoNumero = random.nextInt(9) + 1;
         String numeros = faker.number().digits(6);
+
         return primeiroNumero + "" + segundoNumero + numeros;
     }
 
