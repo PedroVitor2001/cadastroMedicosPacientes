@@ -11,7 +11,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import Faker.PatientFakerUtil;
 
 public class CadastroPacientes {
-    private WebDriver driver;
     private WebDriverWait wait;
 
     private WebElement medicPagebtn;
@@ -31,7 +30,6 @@ public class CadastroPacientes {
     private WebElement listarPacientesbtn;
 
     public CadastroPacientes(WebDriver driver) {
-        this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         this.medicPagebtn = driver.findElement(By.xpath("/html/body/header/div/nav/a[1]"));
