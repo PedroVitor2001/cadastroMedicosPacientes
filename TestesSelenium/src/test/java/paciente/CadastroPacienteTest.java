@@ -99,4 +99,19 @@ public class CadastroPacienteTest {
 
         assertThat(alert.getText()).isEqualTo("Email inválido.");
     }
+
+    @Test
+    @DisplayName("Should not register a patient with a invalid telefone")
+    public void shouldNotRegisterAPatientWithAInvalidTelefone() {
+        page.criarPaciente();
+
+        page.setTelefone(PatientFakerUtil.getWrongTelefone());
+
+        page.cadastrar();
+
+        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        assertThat(alert.getText()).isEqualTo("Telefone inválido. Deve estar no formato XXXXXXXX");
+    }
 }
