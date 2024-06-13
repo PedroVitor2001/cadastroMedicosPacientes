@@ -12,20 +12,17 @@ public class PaginaInicial {
     private By buttonMedic = By.className("pagina-medicos");
     private By buttonPatient = By.className("pagina-pacientes");
     private WebDriverWait wait;
-    public PaginaInicial(WebDriver driver)
-    {
+
+    public PaginaInicial(WebDriver driver) {
         this.driver = driver;
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-    public void clickButtonMedic()
-    {
+    public void clickButtonMedic() {
         wait.until(ExpectedConditions.elementToBeClickable(buttonMedic)).click();
     }
 
     public void clickPatientPage() {
         wait.until(ExpectedConditions.elementToBeClickable(buttonPatient)).click();
     }
-
-
 }
