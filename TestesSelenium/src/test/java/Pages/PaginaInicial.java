@@ -22,4 +22,8 @@ public class PaginaInicial {
     public void clickPatientPage() {
         buttonPatient.click();
     }
+
+    public void clickHomePage() {
+        buttonHome.click();
+    }
 }
