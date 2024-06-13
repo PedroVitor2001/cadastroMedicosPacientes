@@ -4,35 +4,36 @@ import java.time.Duration;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PaginaInicial {
     private WebDriverWait wait;
+    private WebDriver driver;
 
-    private WebElement buttonMedic;
-    private WebElement buttonPatient;
-    private WebElement buttonHome;
+    private By buttonMedic;
+    private By buttonPatient;
+    private By buttonHome;
 
     public PaginaInicial(WebDriver driver) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        this.driver = driver;
 
-        this.buttonMedic = driver.findElement(By.className("pagina-medicos"));
-        this.buttonPatient = driver.findElement(By.className("pagina-pacientes"));
-        this.buttonHome = driver.findElement(By.className("sair"));
+        this.buttonMedic = By.className("pagina-medicos");
+        this.buttonPatient = By.className("pagina-pacientes");
+        this.buttonHome = By.className("sair");
     }
 
     public void goToTheMedicPage() {
-        buttonMedic.click();
+        driver.findElement(buttonMedic).click();
     }
 
     public void goToThePatientPage() {
-        buttonPatient.click();
+        driver.findElement(buttonPatient).click();
     }
 
     public void goToTheHomePage() {
-        buttonHome.click();
+        driver.findElement(buttonHome).click();
     }
 
     public void goToTheMedicPageWaited() {
