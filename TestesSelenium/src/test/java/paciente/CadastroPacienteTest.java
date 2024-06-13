@@ -14,6 +14,7 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import Faker.PatientFakerUtil;
 import Pages.CadastroPacientes;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
@@ -67,5 +68,20 @@ public class CadastroPacienteTest {
             .until(ExpectedConditions.alertIsPresent());
 
         assertThat(alert.getText()).isEqualTo("Todos os campos são obrigatórios.");
+    }
+
+    @Test
+    @DisplayName("Should not register a patient with a invalid CPF")
+    public void shouldNotRegisterAPatientWithAInvalidCPF() {
+        page.criarPaciente();
+
+        page.setCPF(PatientFakerUtil.getWrongRandomCPF());
+
+        page.cadastrar();
+
+        final Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        assertThat(alert.getText()).isEqualTo("CPF inválido. Deve ser: XXX.XXX.XXX-XX");
     }
 }
