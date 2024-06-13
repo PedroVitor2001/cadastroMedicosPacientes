@@ -3,8 +3,6 @@ package Pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class PaginaInicial {
     private WebElement buttonMedic;
@@ -18,10 +16,10 @@ public class PaginaInicial {
     }
 
     public void clickButtonMedic() {
-        wait.until(ExpectedConditions.elementToBeClickable(buttonMedic)).click();
+        buttonMedic.click();
     }
 
     public void clickPatientPage() {
-        wait.until(ExpectedConditions.elementToBeClickable(buttonPatient)).click();
+        buttonPatient.click();
     }
 }
