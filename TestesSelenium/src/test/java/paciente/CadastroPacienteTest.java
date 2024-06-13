@@ -156,4 +156,8 @@ public class CadastroPacienteTest {
                 .isEqualTo("O cadastro deste CPF não foi possível, pois já está cadastrado.");
         }
     }
+
+    @Nested
+    class RouteTests {
+    }
 }
