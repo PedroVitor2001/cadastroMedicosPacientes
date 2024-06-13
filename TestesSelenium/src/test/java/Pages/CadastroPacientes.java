@@ -144,6 +144,16 @@ public class CadastroPacientes {
         setTelefone(PatientFakerUtil.getTelefone());
     }
 
+    public void criarPacienteEmail(String email) {
+        setCPF(PatientFakerUtil.getRandomCPF());
+        setNome(PatientFakerUtil.getNome());
+        setSexo(PatientFakerUtil.getSexo());
+        setPlano(PatientFakerUtil.getPlano());
+        setData(PatientFakerUtil.getDataNascimento());
+        setEmail(email);
+        setTelefone(PatientFakerUtil.getTelefone());
+    }
+
     public void criarPaciente(String CPF) {
         setCPF(CPF);
         setNome(PatientFakerUtil.getNome());

@@ -93,9 +93,7 @@ public class CadastroPacienteTest {
         @Test
         @DisplayName("Should not register a patient with a invalid email")
         public void shouldNotRegisterAPatientWithAInvalidEmail() {
-            page.criarPaciente();
-
-            page.setEmail(PatientFakerUtil.getWrongEmail());
+            page.criarPacienteEmail(PatientFakerUtil.getWrongEmail());
 
             page.cadastrar();
 
