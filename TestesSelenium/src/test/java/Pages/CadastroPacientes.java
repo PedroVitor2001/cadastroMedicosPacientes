@@ -102,7 +102,7 @@ public class CadastroPacientes {
     }
 
     public void clickListarPacientesBtn() {
-        wait.until(ExpectedConditions.elementToBeClickable(listarPacientesbtn)).click();
+        wait.until(ExpectedConditions.elementToBeClickable(By.cssSelector(".cadastro-sec .collum-2 .campos a"))).click();
     }
 
     public void clickEditarBtn() {

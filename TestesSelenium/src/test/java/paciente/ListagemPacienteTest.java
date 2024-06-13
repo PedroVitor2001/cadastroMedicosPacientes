@@ -37,7 +37,7 @@ public class ListagemPacienteTest {
         WebDriverManager.chromedriver().setup();
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--remote-allow-origins=*");
-    
+
         driver = new ChromeDriver(options);
         driver.get(url);
         paginaInicial = new PaginaInicial(driver);
@@ -214,8 +214,16 @@ public class ListagemPacienteTest {
             cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickEditBtn();
-            cadastroPacientesPage.setNome("nome alterado"); // should work with webdriverwait in this function
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(By.id("cpf")));
+             // should work with webdriverwait in this function
             cadastroPacientesPage.clickEditarBtn();
+
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.alertIsPresent()).accept();
+
+            new WebDriverWait(driver, Duration.ofSeconds(10))
+                .until(ExpectedConditions.elementToBeClickable(By.cssSelector(".cadastro-sec .collum-2 .campos a")));
             cadastroPacientesPage.clickListarPacientesBtn();
             listaPacientePage.setCPF("123.456.789-01");
             listaPacientePage.clickListBtn();
