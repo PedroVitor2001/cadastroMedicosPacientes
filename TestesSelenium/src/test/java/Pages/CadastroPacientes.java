@@ -135,4 +135,24 @@ public class CadastroPacientes {
         cadastrar();
         wait.until(ExpectedConditions.alertIsPresent()).accept();
     }
+
+    public void criarPaciente() {
+        setCPF(PatientFakerUtil.getRandomCPF());
+        setNome(PatientFakerUtil.getNome());
+        setSexo(PatientFakerUtil.getSexo());
+        setPlano(PatientFakerUtil.getPlano());
+        setData(PatientFakerUtil.getDataNascimento());
+        setEmail(PatientFakerUtil.getEmail());
+        setTelefone(PatientFakerUtil.getTelefone());
+    }
+
+    public void criarPaciente(String CPF) {
+        setCPF(CPF);
+        setNome(PatientFakerUtil.getNome());
+        setSexo(PatientFakerUtil.getSexo());
+        setPlano(PatientFakerUtil.getPlano());
+        setData(PatientFakerUtil.getDataNascimento());
+        setEmail(PatientFakerUtil.getEmail());
+        setTelefone(PatientFakerUtil.getTelefone());
+    }
 }
