@@ -127,4 +127,29 @@ public class CadastroPacienteTest {
 
         assertThat(alert.getText()).isEqualTo("Cadastro efetuado com sucesso");
     }
+
+    @Test
+    @DisplayName("Should not register two or more patients with the same CPF")
+    public void ShouldNotRegisterTwoOrMorePatientsWithTheSameCPF() {
+        String CPF = PatientFakerUtil.getRandomCPF();
+
+        page.criarPaciente(CPF);
+
+        page.cadastrar();
+
+        Alert alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        alert.accept();
+
+        page.criarPaciente(CPF);
+
+        page.cadastrar();
+
+        alert = new WebDriverWait(driver, Duration.ofSeconds(10))
+            .until(ExpectedConditions.alertIsPresent());
+
+        assertThat(alert.getText())
+            .isEqualTo("O cadastro deste CPF não foi possível, pois já está cadastrado.");
+    }
 }
