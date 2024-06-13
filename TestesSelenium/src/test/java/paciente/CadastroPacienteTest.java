@@ -21,7 +21,8 @@ import io.github.bonigarcia.wdm.WebDriverManager;
 
 public class CadastroPacienteTest {
     private WebDriver driver;
-    private String BASE_URL = "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
+    private final String BASE_URL =
+        "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
     private CadastroPacientes page;
 
     @BeforeEach
@@ -159,5 +160,16 @@ public class CadastroPacienteTest {
 
     @Nested
     class RouteTests {
+        private final String HOME_PAGE =
+            "https://cadastro-medicos-pacientes-a4n9.vercel.app/index.html";
+
+        private final String MEDIC_PAGE =
+            "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/medicos.html";
+
+        private final String PATIENT_PAGE =
+            "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/pacientes.html";
+
+        private final String PATIENT_LIST_PAGE =
+            "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/dadosPaciente.html";
     }
 }
