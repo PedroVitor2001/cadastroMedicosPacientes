@@ -39,7 +39,7 @@ public class PaginaInicial {
         wait.until(ExpectedConditions.elementToBeClickable(buttonMedic)).click();
     }
 
-    public void clickPatientPageWaited() {
+    public void goToPatientPageWaited() {
         wait.until(ExpectedConditions.elementToBeClickable(buttonPatient)).click();
     }
 }

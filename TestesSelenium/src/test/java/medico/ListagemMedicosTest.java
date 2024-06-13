@@ -56,7 +56,7 @@ public class ListagemMedicosTest {
         void shouldClickOnTheButtonToListAllDoctors()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             cadastroMedicos.clickDoctorsList();
             listaMedicos.listAll();
             webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -71,7 +71,7 @@ public class ListagemMedicosTest {
         void shouldRegisterSomeDoctorsListThemAndCheckIfYouHaveBeenListed()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             for (int i = 0; i < 5; i++) {
                 cadastroMedicos.fillAllFields(
                         MedicFakerUtil.getRandomCRM(),
@@ -109,7 +109,7 @@ public class ListagemMedicosTest {
         void shouldReturnAnAlertToEnterTheCRMWhenClickingTheListAButton()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             cadastroMedicos.clickDoctorsList();
             listaMedicos.clickListDoctor();
             webDriverWait.until(ExpectedConditions.alertIsPresent());
@@ -124,7 +124,7 @@ public class ListagemMedicosTest {
         void shouldListADoctor()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
@@ -167,7 +167,7 @@ public class ListagemMedicosTest {
         void shouldClickOnChangeDoctorAndAMessageAppearsToEnterTheCRM()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             cadastroMedicos.clickDoctorsList();
             listaMedicos.clickEditDoctor();
 
@@ -183,7 +183,7 @@ public class ListagemMedicosTest {
         void shouldEnterACRMThatDoesNotExistAndClickOnSearchToTryToChangeTheDoctor()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             cadastroMedicos.clickDoctorsList();
             listaMedicos.searchCRM(MedicFakerUtil.getRandomCRM());
             listaMedicos.clickEditDoctor();
@@ -199,7 +199,7 @@ public class ListagemMedicosTest {
         void ShouldEnterACRMThatIsRegisteredAndChangeTheData()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
 
             String crm = null;
             for (int i = 0; i < 2; i++) {
@@ -260,7 +260,7 @@ public class ListagemMedicosTest {
         void shouldEnterACRMThatIsRegisteredAndChangeTheDataAndCheckIfItHasBeenChangedByLookingForTheCRMAgainAndSeeIfItHasBeenListed()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
 
             String crm = null;
             String editCrm = null;
@@ -333,7 +333,7 @@ public class ListagemMedicosTest {
         void shouldCheckThatTheFieldsHaveBeenSetWhenYouReturnToTheRegistrationPage()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
@@ -365,7 +365,7 @@ public class ListagemMedicosTest {
 
             listaMedicos.clickEditDoctor();
 
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
 
             assertFalse(cadastroMedicos.isRegisterButtonDisplayed(), "O botão Cadastrar não está presente na página.");
 
@@ -382,7 +382,7 @@ public class ListagemMedicosTest {
         {
             driver.get(url);
 
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
 
             cadastroMedicos.clickDoctorsList();
 
@@ -400,7 +400,7 @@ public class ListagemMedicosTest {
         void shouldRegisterTwoCRMDeleteAndCheckIfDeletedByListingTheCRM()
         {
             driver.get(url);
-            paginaInicial.goToTheMedicPage();
+            paginaInicial.goToTheMedicPageWaited();
             String crm = null;
             for (int i = 0; i < 2; i++) {
                 crm = MedicFakerUtil.getRandomCRM();
