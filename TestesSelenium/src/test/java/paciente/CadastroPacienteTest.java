@@ -187,5 +187,13 @@ public class CadastroPacienteTest {
 
             assertThat(driver.getCurrentUrl()).isEqualTo(MEDIC_PAGE);
         }
+        
+        @Test
+        @DisplayName("Should go to the patient page")
+        public void ShouldGoToThePatientPage() {
+            page.goToPatientPage();
+
+            assertThat(driver.getCurrentUrl()).isEqualTo(PATIENT_PAGE);
+        }
     }
 }
