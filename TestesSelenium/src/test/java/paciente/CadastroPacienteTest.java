@@ -171,5 +171,13 @@ public class CadastroPacienteTest {
 
         private final String PATIENT_LIST_PAGE =
             "https://cadastro-medicos-pacientes-a4n9.vercel.app/pages/dadosPaciente.html";
+
+        @Test
+        @DisplayName("Should go to the home page")
+        public void ShouldGoToTheHomePage() {
+            page.goToHomePage();
+
+            assertThat(driver.getCurrentUrl()).isEqualTo(HOME_PAGE);
+        }
     }
 }
